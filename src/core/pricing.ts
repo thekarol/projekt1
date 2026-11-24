@@ -121,7 +121,8 @@ export function bandPriceOn(catalog: Catalog, day: DayInfo, variantId: Id, bandI
       if (custom) return custom.amount;
     }
   }
-  return rateOf(catalog, day.tariffId, variantId, bandId);
+  // A tariff without its own price for this size and band falls back to the base tariff.
+  return rateOf(catalog, day.tariffId, variantId, bandId) ?? rateOf(catalog, baseTariff(catalog).id, variantId, bandId);
 }
 
 export function dayBand(catalog: Catalog): PriceBand | null {

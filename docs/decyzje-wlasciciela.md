@@ -2,7 +2,7 @@
 
 Stan na 2026-11-24. Faza 0 jest zaakceptowana. Ten plik zbiera odpowiedzi właściciela z rozmowy i ma pierwszeństwo nad `faza-0/faza-0-decyzje-i-plan.md` tam, gdzie się różnią. Wygląd reguluje `faza-0/kierunek-wizualny.md`.
 
-**Stan prac:** bramka 1A zaakceptowana („dalej”). **Bramka 1B gotowa do oceny właściciela:** działa pokaz (sklep, kalendarz, koszyk, potwierdzenie, panel administratora, prosta lista zgłoszeń, „O pokazie”). Testy: 235 z 235 (silniki, repozytorium, architektura), 36 z 36 sprawdzeń w przeglądarce, 82 z 82 testów silników na żywo w pokazie. Raport: `docs/bramka-1B.md` w repozytorium.
+**Stan prac:** bramka 1A zaakceptowana („dalej”). **Bramka 1B gotowa do oceny właściciela:** działa pokaz (sklep, kalendarz, koszyk, potwierdzenie, panel administratora, prosta lista zgłoszeń, „O pokazie”). Testy: 237 z 237 (silniki, repozytorium, architektura), 36 z 36 sprawdzeń w przeglądarce, 84 z 84 testów silników na żywo w pokazie. Raport: `docs/bramka-1B.md` w repozytorium.
 
 **Kod:** repozytorium `thekarol/projekt1`. Gałąź `faza-1a-silniki` (bramka 1A) i `faza-1b-widoki` (bramka 1B) są na GitHubie.
 
@@ -30,13 +30,14 @@ Stan na 2026-11-24. Faza 0 jest zaakceptowana. Ten plik zbiera odpowiedzi właś
 2. **Wyjątki dat mają pierwszeństwo nad sezonami.** Wyjątek to data lub zakres oraz jedno działanie: przypisana taryfa, własne kwoty dla progów albo „zamknięte”.
 3. **Progi cennika są ustawieniem w panelu:** najem godzinowy do N godzin (start: 4, powyżej cena dnia), pakiety dni (start: 2 i 3), powyżej najdłuższego pakietu „do ustalenia”.
 4. **Taryfy są definiowalne w panelu:** nazwa wewnętrzna, tabela cen dla progów i wariantów, sezon (miesiące, dni tygodnia).
-5. **Nowa taryfa: „Wypełnij z Bazowej” o procent lub kwotę, potem ręczne poprawki pojedynczych komórek.** Wynik korekty zaokrąglany do pełnych złotych. Komórka zmieniona ręcznie jest oznaczona; nadpisanie jej ceną „dla wszystkich rozmiarów” albo ponownym wypełnieniem wymaga potwierdzenia.
-6. **Najem obejmujący dni w różnych cenach liczymy proporcjonalnie:** każdy dzień wnosi 1/N ceny pakietu N-dniowego ze swojej taryfy; wynik zaokrąglamy do pełnych złotych. Przykład: NS, 30–31 sierpnia i 1 września: 2/3 × 650 + 1/3 × 710 = 670 zł.
-7. **Klient nie widzi nazw taryf.** Widzi cenę standardową (Bazowy), różnicę terminu jako osobny wiersz („+20 zł”, „−20 zł”) i sumę. Kafelek kalendarza ma plakietkę z różnicą, a zakres na granicy cen zdanie o zmianie ceny.
-8. **Plakietka w kalendarzu liczy się dla zawartości koszyka; gdy koszyk jest pusty, dla oglądanego roweru.** Bez koszyka i bez wybranego roweru kalendarz nie pokazuje plakietek.
-9. **Rabat grupowy:** od 4 rowerów 5% od całego zamówienia (rowery, wyposażenie, dowóz), w każdym terminie. Zamówienie dostaje status ceny „do ustalenia” i nie oferuje płatności online. Próg, procent i podstawa edytowalne. Zastępuje dawną regułę „niższa kwota bez sumowania”. Tekst na stronie: „Od 4 rowerów naliczamy 5% rabatu na całe zamówienie. Cenę i szczegóły potwierdzimy po otrzymaniu rezerwacji.”
-10. **Wyposażenie to osobne pozycje z ilością** (np. 3 kaski na 5 rowerów), cena za sztukę za dzień.
-11. **Ceny na kafelkach bez „od”.** Przed wyborem daty: cena najbliższego wolnego terminu z podpisem terminu. Po wyborze daty: natychmiastowa aktualizacja.
+5. **Rozmiar bez ceny w taryfie sezonowej dostaje cenę z Bazowej** (decyzja po bramce 1B); cennik pokazuje ostrzeżenie o brakujących cenach. Brak ceny także w Bazowej oznacza „do ustalenia”.
+6. **Nowa taryfa: „Wypełnij z Bazowej” o procent lub kwotę, potem ręczne poprawki pojedynczych komórek.** Wynik korekty zaokrąglany do pełnych złotych. Komórka zmieniona ręcznie jest oznaczona; nadpisanie jej ceną „dla wszystkich rozmiarów” albo ponownym wypełnieniem wymaga potwierdzenia.
+7. **Najem obejmujący dni w różnych cenach liczymy proporcjonalnie:** każdy dzień wnosi 1/N ceny pakietu N-dniowego ze swojej taryfy; wynik zaokrąglamy do pełnych złotych. Przykład: NS, 30–31 sierpnia i 1 września: 2/3 × 650 + 1/3 × 710 = 670 zł.
+8. **Klient nie widzi nazw taryf.** Widzi cenę standardową (Bazowy), różnicę terminu jako osobny wiersz („+20 zł”, „−20 zł”) i sumę. Kafelek kalendarza ma plakietkę z różnicą, a zakres na granicy cen zdanie o zmianie ceny.
+9. **Plakietka w kalendarzu liczy się dla zawartości koszyka; gdy koszyk jest pusty, dla oglądanego roweru.** Bez koszyka i bez wybranego roweru kalendarz nie pokazuje plakietek.
+10. **Rabat grupowy:** od 4 rowerów 5% od całego zamówienia (rowery, wyposażenie, dowóz), w każdym terminie. Zamówienie dostaje status ceny „do ustalenia” i nie oferuje płatności online. Próg, procent i podstawa edytowalne. Zastępuje dawną regułę „niższa kwota bez sumowania”. Tekst na stronie: „Od 4 rowerów naliczamy 5% rabatu na całe zamówienie. Cenę i szczegóły potwierdzimy po otrzymaniu rezerwacji.”
+11. **Wyposażenie to osobne pozycje z ilością** (np. 3 kaski na 5 rowerów), cena za sztukę za dzień.
+12. **Ceny na kafelkach bez „od”.** Przed wyborem daty: cena najbliższego wolnego terminu z podpisem terminu. Po wyborze daty: natychmiastowa aktualizacja.
 
 ## Dostępność, kalendarz, statusy
 
@@ -88,10 +89,14 @@ Z bramki 1B:
 - Godzina graniczna najmu dniowego na dziś w danych startowych: 12:00.
 - Usunięcie progu cennika, taryfy albo rozmiaru usuwa także ich ceny (rozmiaru: także egzemplarze i wyłączenia). Rekord użyty w zgłoszeniu nie da się usunąć; można go wyłączyć.
 - Drugie kliknięcie w kalendarzu wydłuża termin; kliknięcie dalej niż najdłuższy dozwolony najem zaczyna nowy termin.
-- Rozmiar bez ceny w którejś taryfie jest w jej dniach „do ustalenia”; cennik pokazuje o tym ostrzeżenie. To pytanie otwarte (niżej).
+
+## Decyzje do Fazy 2 (odpowiedzi z 2026-11-24)
+
+- **Panel kierowcy:** kierowca widzi imię, telefon i adres klienta; nie widzi e-maila ani kwot.
+- **Statusy dowozu:** lista edytowalna w panelu, jak statusy zgłoszeń. Startowo: Zgłoszenie (przed zatwierdzeniem), Zaplanowany, W drodze, Dostarczony, Odebrany od klienta.
+- **Kody egzemplarzy przy wydaniu:** zespół może je zaznaczyć przy statusie „Wydane”, ale nie musi; brak kodów nie blokuje wydania.
 
 ## Pytania otwarte po bramce 1B
 
-- Rozmiar bez ceny w taryfie sezonowej: „do ustalenia” (jak teraz) czy cena z Bazowej.
+- Akceptacja bramki 1B przez właściciela (wygląd i zasady w pokazie).
 - Prawa do zdjęć (nagłówek i kafelki) po wdrożeniu.
-- Przed Fazą 2: czy kierowca widzi telefon klienta; lista statusów dowozu; czy przy wydaniu zespół zaznacza kody wydanych egzemplarzy.

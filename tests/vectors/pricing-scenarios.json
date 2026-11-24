@@ -158,10 +158,22 @@
       "expect": { "total": 82000, "priceStatus": "final", "lines": [{ "method": { "code": "package", "days": 4 } }] }
     },
     {
-      "name": "Pakiet bez stawki w taryfie sezonowej: do ustalenia zamiast zgadywania",
+      "name": "Pakiet bez stawki w taryfie sezonowej: obowiązuje cena z taryfy bazowej",
       "patch": { "bands": [{ "id": "days4", "kind": "days", "days": 4, "label": "4 dni", "order": 4 }], "rates": [{ "tariffId": "standard", "variantId": "ns-m", "bandId": "days4", "amount": 82000 }] },
       "order": { "mode": "days", "startDate": "2027-09-14", "endDate": "2027-09-17", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 82000, "priceStatus": "final", "dateDifference": 0, "toBeAgreed": [] }
+    },
+    {
+      "name": "Pakiet bez stawki także w taryfie bazowej: do ustalenia zamiast zgadywania",
+      "patch": { "bands": [{ "id": "days4", "kind": "days", "days": 4, "label": "4 dni", "order": 4 }] },
+      "order": { "mode": "days", "startDate": "2027-09-14", "endDate": "2027-09-17", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
       "expect": { "total": 0, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "missingRate", "refId": "ns-m" }] }
+    },
+    {
+      "name": "Termin na granicy taryf, gdy sezonowa nie ma stawki: brakujące dni liczone po cenie bazowej",
+      "patch": { "bands": [{ "id": "days4", "kind": "days", "days": 4, "label": "4 dni", "order": 4 }], "rates": [{ "tariffId": "standard", "variantId": "ns-m", "bandId": "days4", "amount": 82000 }] },
+      "order": { "mode": "days", "startDate": "2027-08-30", "endDate": "2027-09-02", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 82000, "priceStatus": "final", "dateDifference": 0 }
     },
     {
       "name": "Długość między pakietami (4 dni przy pakietach 2, 3 i 5): do ustalenia",

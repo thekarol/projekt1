@@ -264,7 +264,7 @@ function RatesGrid() {
   };
 
   if (!tariff) return null;
-  // A size without a price in some tariff is "do ustalenia" on that tariff's days; say so before a customer finds out.
+  // A size without a price in a seasonal tariff is charged the base price; without a base price it is "do ustalenia".
   const missing = tariffs
     .filter((t) => t.active)
     .map((t) => ({
@@ -277,7 +277,7 @@ function RatesGrid() {
       {missing.length > 0 ? (
         <div data-testid="missing-rates">
           <Notice kind="warn">
-            <strong>Brakuje cen.</strong> W dniach tych taryf najem będzie „do ustalenia”, bez płatności online:
+            <strong>Brakuje cen.</strong> W dniach taryfy sezonowej obowiązuje wtedy cena z Bazowej; brak ceny w Bazowej oznacza najem „do ustalenia”, bez płatności online:
             <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
               {missing.map((m) => (
                 <li key={m.tariff.id}>{m.tariff.name}: {m.variants.map((v) => variantName(catalog, v.id)).join(', ')}</li>
@@ -379,7 +379,7 @@ function RatesGrid() {
                             data-edited={Boolean(rate?.manuallyEdited)}
                             aria-label={`${product.name} ${variant.label}, ${band.label}${rate?.manuallyEdited ? ', zmieniona ręcznie' : ''}`}
                             defaultValue={moneyInput(rate?.amount)}
-                            placeholder="brak"
+                            placeholder={tariff.isBase ? 'brak' : 'z Bazowej'}
                             onBlur={(e) => {
                               const amount = parseMoney(e.target.value);
                               if (amount === null || amount === rate?.amount) return;
@@ -398,7 +398,7 @@ function RatesGrid() {
           </tbody>
         </table>
       </div>
-      <p className="ra-small ra-muted">Komórka z pomarańczową ramką i dopiskiem „ręcznie” została zmieniona ręcznie. Pusta komórka oznacza brak ceny: taki najem jest „do ustalenia”.</p>
+      <p className="ra-small ra-muted">Komórka z pomarańczową ramką i dopiskiem „ręcznie” została zmieniona ręcznie. Pusta komórka w taryfie sezonowej oznacza cenę z Bazowej; pusta komórka w Bazowej oznacza najem „do ustalenia”.</p>
     </section>
   );
 }

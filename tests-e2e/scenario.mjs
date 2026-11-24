@@ -166,18 +166,16 @@ const suggested = await dialog.getByLabel(/Kod egzemplarza/).inputValue();
 await save();
 await go('cennik');
 check('cennik: ostrzeżenie o brakujących cenach nowego rozmiaru', /Brakuje cen/.test(await page.locator('[data-testid=missing-rates]').innerText().catch(() => '')));
-const tariffSelect = page.locator('main select').first();
-for (const tariff of await tariffSelect.locator('option').evaluateAll((options) => options.map((o) => o.value))) {
-  await tariffSelect.selectOption(tariff);
-  const row = page.locator('tr', { hasText: 'wszystkie rozmiary naraz' }).filter({ hasText: 'Rower Testowy' });
-  for (const input of await row.locator('input').all()) await input.fill('120');
-  await row.getByRole('button', { name: 'Wpisz wszystkim' }).click();
-  await page.waitForTimeout(200);
-}
-check('cennik: po uzupełnieniu ostrzeżenie znika', (await page.locator('[data-testid=missing-rates]').count()) === 0);
+// Prices go into the base tariff only; seasonal tariffs then charge the base price.
+const newRow = page.locator('tr', { hasText: 'wszystkie rozmiary naraz' }).filter({ hasText: 'Rower Testowy' });
+for (const input of await newRow.locator('input').all()) await input.fill('120');
+await newRow.getByRole('button', { name: 'Wpisz wszystkim' }).click();
+await page.waitForTimeout(200);
+const missingText = await page.locator('[data-testid=missing-rates]').innerText();
+check('cennik: po cenach w Bazowej ostrzeżenie zostaje tylko dla taryf sezonowych', !/Bazowy:/.test(missingText) && /Rower Testowy/.test(missingText), missingText);
 await go('start');
 const fresh = card('Rower Testowy');
-check('nowy produkt z panelu: w sklepie, z ceną, jedną sztuką i bez zdjęcia', (await fresh.count()) === 1 && /120 zł/.test(norm(await fresh.innerText())) && /wolne 1/.test(await fresh.innerText()) && (await fresh.locator('.ra-photo').count()) === 0 && suggested === 'RT-M-01', `${suggested} :: ${(await fresh.count()) ? norm(await fresh.innerText()) : 'brak kafelka'}`);
+check('nowy produkt z panelu: w sklepie z ceną z Bazowej także w dniu taryfy sezonowej, jedną sztuką i bez zdjęcia', (await fresh.count()) === 1 && /120 zł/.test(norm(await fresh.innerText())) && /wolne 1/.test(await fresh.innerText()) && (await fresh.locator('.ra-photo').count()) === 0 && suggested === 'RT-M-01', `${suggested} :: ${(await fresh.count()) ? norm(await fresh.innerText()) : 'brak kafelka'}`);
 
 // 10. Admin: status without "blokuje sprzęt" stops blocking; payments off
 await go('ustawienia');
