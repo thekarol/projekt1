@@ -79,6 +79,7 @@ source.wyposazenieZaRowerZaDzien
         price: zl(item.cena),
         limitedByVehicle: false,
         stock: null,
+        needsAddress: false,
         active: true,
         order: index,
       }),
@@ -94,6 +95,7 @@ owner.uslugiDodatkowe.forEach((item: any, index: number) => {
       price: item.cenaZDanych ? zl(pick(source, item.cenaZDanych)) : null,
       limitedByVehicle: Boolean(item.limitAuta),
       stock: null,
+      needsAddress: Boolean(item.wymagaAdresu),
       active: true,
       order: 100 + index,
     }),
@@ -146,6 +148,9 @@ const catalog: Catalog = {
       lowStockThreshold: owner.ustawienia.progOstatnichSztuk,
       horizonDays: owner.ustawienia.horyzontKalendarzaDni,
     },
+    booking: {
+      sameDayDaysUntil: owner.ustawienia.najemDniowyNaDzisDoGodziny ? parseTime(owner.ustawienia.najemDniowyNaDzisDoGodziny) : null,
+    },
   },
   bands: owner.progi.map((b: any, order: number) =>
     rec({ id: b.id, kind: b.rodzaj, maxHours: b.maxGodzin, days: b.dni, label: b.etykieta, order }),
@@ -179,13 +184,15 @@ const catalog: Catalog = {
   units,
   unitOutages: [],
   serviceCategories: owner.kategorieUslug.map((c: any, order: number) =>
-    rec({ id: c.id, name: c.nazwa, requestType: c.rodzajZgloszenia, order }),
+    rec({ id: c.id, name: c.nazwa, requestType: c.rodzajZgloszenia, noneLabel: c.etykietaBez, order }),
   ),
   services,
   statuses: owner.statusy.map((s: any, order: number) =>
     rec({ id: s.id, name: s.nazwa, order, blocksStock: s.blokuje, isInitial: s.poczatkowy, tone: s.ton }),
   ),
   channels: owner.kanaly.map((c: any, order: number) => rec({ id: c.id, name: c.nazwa, order })),
+  content: owner.tresci.map((c: any, order: number) => rec({ id: c.id, kind: c.rodzaj, title: c.tytul, body: c.tresc, image: c.zdjecie ?? null, active: true, order })),
+  users: owner.uzytkownicy.map((u: any) => rec({ id: u.id, name: u.imie, email: u.email, role: u.rola, active: true })),
 };
 
 const reservations: SeedReservation[] = owner.przykladoweZgloszenia.map((r: any) => ({

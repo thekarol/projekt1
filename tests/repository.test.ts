@@ -296,6 +296,19 @@ describe('repozytorium: zmiany oferty przez administratora', () => {
     const result = await r.removeRecord('variants', variant.id, { actor: admin, expectedVersion: variant.version });
     assert.ok(!result.ok && result.error.code === 'invalid');
   });
+  it('usunięcie progu cennika usuwa jego stawki, a usunięcie egzemplarza jego wyłączenia', async () => {
+    const r = repo();
+    const band = (await r.getCatalog()).bands.find((b) => b.id === 'days3')!;
+    assert.ok((await r.removeRecord('bands', band.id, { actor: admin, expectedVersion: band.version })).ok);
+    const afterBand = await r.getCatalog();
+    assert.equal(afterBand.rates.length, 54);
+    assert.equal(quote(afterBand, days(D, '2027-07-08', [['ns-m', 1]])).priceStatus, 'toBeAgreed');
+    await r.putRecord('unitOutages', { id: 'o1', tenantId: 'skybike', version: 0, unitId: 'u-ns-s-01', from: '2027-08-01', to: '2027-08-02', reason: '' }, { actor: admin });
+    const unit = afterBand.units.find((u) => u.id === 'u-ns-s-01')!;
+    assert.ok((await r.removeRecord('units', unit.id, { actor: admin, expectedVersion: unit.version })).ok);
+    assert.equal((await r.getCatalog()).unitOutages.length, 0);
+    assert.deepEqual(await r.currentImpact(), { overbookings: [], closedDatesWithReservations: [] });
+  });
   it('nowy model z rozmiarem, egzemplarzem i stawką da się zarezerwować bez zmian w kodzie', async () => {
     const r = repo();
     const base = { tenantId: 'skybike', version: 0 };

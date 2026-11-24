@@ -46,6 +46,10 @@ export interface Settings {
   delivery: { vehicleCapacity: number };
   payments: { onlineEnabled: boolean };
   calendar: { lowStockThreshold: number; horizonDays: number };
+  booking: {
+    /** A day rental starting today can be booked in the shop until this minute. Null = not at all. */
+    sameDayDaysUntil: Minutes | null;
+  };
 }
 
 /** A price threshold: short hourly rental, a single day, or a package of N days. */
@@ -153,6 +157,8 @@ export interface ServiceCategory extends Versioned {
   name: string;
   /** Name of the request type created by this category, e.g. "Dowóz". */
   requestType: string;
+  /** Label of the "none of these" choice in the cart, e.g. "Odbiór własny". */
+  noneLabel: string;
   order: number;
 }
 
@@ -165,6 +171,8 @@ export interface Service extends Versioned {
   limitedByVehicle: boolean;
   /** Optional stock. Null = unlimited. */
   stock: number | null;
+  /** The customer must give an address (delivery). */
+  needsAddress: boolean;
   active: boolean;
   order: number;
 }
@@ -180,6 +188,24 @@ export interface Status extends Versioned {
 export interface Channel extends Versioned {
   name: string;
   order: number;
+}
+
+/** Editable text on the customer page: hero, benefit sections, questions. */
+export interface ContentSection extends Versioned {
+  kind: 'hero' | 'benefit' | 'faq';
+  title: string;
+  body: string;
+  /** Image file name; used by the hero section. */
+  image: string | null;
+  active: boolean;
+  order: number;
+}
+
+export interface User extends Versioned {
+  name: string;
+  email: string;
+  role: 'team' | 'driver' | 'admin';
+  active: boolean;
 }
 
 /** Everything the engines need to price and check an order. Pure data. */
@@ -199,6 +225,8 @@ export interface Catalog {
   services: Service[];
   statuses: Status[];
   channels: Channel[];
+  content: ContentSection[];
+  users: User[];
 }
 
 export type RentalMode = 'days' | 'hours';

@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src", "tests", "scripts"]
+  "include": ["src/core", "src/data", "src/app", "tests", "scripts"]
 }

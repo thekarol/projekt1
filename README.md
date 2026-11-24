@@ -4,19 +4,22 @@ Pierwszy najemca: wypożyczalnia rowerów SKY BIKE w Szczyrku. Docelowo narzędz
 
 ## Stan
 
-Faza 1, bramka 1A: gotowe są model danych, silnik cen, silnik dostępności i repozytorium danych w pamięci, wszystko z testami. Widoków (sklep, koszyk, panele) jeszcze nie ma; powstają po akceptacji bramki 1A. Raport bramki: [docs/bramka-1A.md](docs/bramka-1A.md).
+Faza 1, bramka 1B: działa pokaz na przykładowych danych. Sklep, kalendarz, koszyk i potwierdzenie liczą ceny i dostępność silnikami z bramki 1A; panel administratora edytuje ofertę, egzemplarze, cennik, taryfy, wyjątki dat, godziny, usługi, statusy, treści i reguły. Płatność, e-mail i logowanie są szkicami i są tak oznaczone. Raporty bramek: [docs/bramka-1A.md](docs/bramka-1A.md), [docs/bramka-1B.md](docs/bramka-1B.md).
 
 ## Uruchomienie
 
-Potrzebny jest tylko Node w wersji 22.18 lub nowszej. Nie trzeba instalować żadnych pakietów.
+Testy silników potrzebują tylko Node w wersji 22.18 lub nowszej, bez instalowania pakietów.
 
 ```
-npm test          # wszystkie testy
-npm run raport    # testy + tabela 36 kwot, zapis do docs/bramka-1A.md
+npm test          # testy silników, repozytorium i architektury
 npm run seed      # odbudowa danych startowych z plików w dane/
+npm run build     # paczka aplikacji: dist/index.html, rental-app.js, rental-app.css, assets/
+npm run e2e       # przejście kryteriów bramki 1B w przeglądarce (wymaga wcześniejszego build)
 ```
 
-Kontrola typów (`npm run typecheck`) wymaga TypeScript 6 i `@types/node`.
+`build` wymaga pakietów `esbuild`, `react` i `react-dom`, `e2e` dodatkowo `playwright` i przeglądarki Chrome (ścieżkę można podać w zmiennej `CHROME`), a `typecheck` TypeScript 6 i `@types/node`. Po `build` wystarczy otworzyć `dist/index.html`; serwer nie jest potrzebny.
+
+Aplikacja montuje się na elemencie `<div data-rental-app data-assets="assets/">` i wszystkie style trzyma pod klasą `.rental-app`, więc można ją osadzić na istniejącej stronie.
 
 ## Układ
 
@@ -25,8 +28,12 @@ Kontrola typów (`npm run typecheck`) wymaga TypeScript 6 i `@types/node`.
 | `src/core` | Silniki bez żadnych zależności: ceny (`pricing.ts`), dostępność (`availability.ts`), kalendarz cen i godzin (`calendar.ts`), czas, kwoty, typy modelu, walidator danych |
 | `src/data` | Jeden interfejs dostępu do danych (`repository.ts`) i jego wersja w pamięci (`memory.ts`); dane startowe pokazu w `seed/skybike.json` |
 | `dane` | Źródła danych startowych: `dane-startowe.json` (z obecnej aplikacji) i `decyzje-wlasciciela.json` (rozmiary, progi, wyjątki, statusy, kanały) |
+| `src/app` | Warstwa pośrednia bez przeglądarki: polskie etykiety, uprawnienia ról, treść maila, testy silników uruchamiane też na stronie „O pokazie” |
+| `src/ui` | Widoki (React): sklep, kalendarz, koszyk, potwierdzenie, panel, „O pokazie”; jeden arkusz `ui.css` |
+| `assets` | Zdjęcia używane w pokazie |
+| `tests-e2e` | Scenariusz przeglądarkowy kryteriów bramki 1B |
 | `tests` | Testy; przypadki cenowe są danymi w `tests/vectors/*.json`, żeby ten sam zestaw sprawdzał późniejszą wersję po stronie serwera |
-| `scripts` | Budowa danych startowych i raport bramki |
+| `scripts` | Budowa danych startowych, paczki aplikacji i raportu bramki 1A |
 
 ## Zasady, których pilnują testy
 

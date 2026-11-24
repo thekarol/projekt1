@@ -4,15 +4,25 @@
   "private": true,
   "description": "System obsługi wypożyczalni (pierwszy najemca: SKY BIKE, Szczyrk)",
   "type": "module",
-  "engines": { "node": ">=22.18" },
+  "engines": {
+    "node": ">=22.18"
+  },
   "scripts": {
     "test": "node --test \"tests/**/*.test.ts\"",
     "typecheck": "tsc --noEmit",
     "seed": "node scripts/build-seed.ts",
-    "raport": "node scripts/raport-bramka-1a.ts"
+    "raport": "node scripts/raport-bramka-1a.ts",
+    "build": "node scripts/build.ts",
+    "e2e": "node tests-e2e/scenario.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "esbuild": "^0.28.0",
+    "playwright": "^1.63.0"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

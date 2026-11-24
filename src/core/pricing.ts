@@ -352,3 +352,25 @@ export function dayPriceDelta(
 export function amountDue(total: Grosze, manual: ManualAmount | null): Grosze {
   return manual ? manual.amount : total;
 }
+
+/** Rates for a tariff derived from the base tariff: a percentage or a fixed amount per cell, rounded to `unit`. */
+export function ratesFromBase(
+  catalog: Catalog,
+  tariffId: Id,
+  adjust: { kind: 'percent' | 'amount'; value: number },
+  unit: Grosze = 100,
+): Rate[] {
+  const base = baseTariff(catalog);
+  return catalog.rates
+    .filter((r) => r.tariffId === base.id)
+    .map((r) => ({
+      tenantId: r.tenantId,
+      tariffId,
+      variantId: r.variantId,
+      bandId: r.bandId,
+      amount: Math.max(
+        0,
+        roundHalfUp(adjust.kind === 'percent' ? r.amount * (1 + adjust.value / 100) : r.amount + adjust.value, unit),
+      ),
+    }));
+}

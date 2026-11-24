@@ -44,6 +44,9 @@
       "calendar": {
         "lowStockThreshold": 1,
         "horizonDays": 365
+      },
+      "booking": {
+        "sameDayDaysUntil": 720
       }
     },
     "bands": [
@@ -994,6 +997,7 @@
         "id": "equipment",
         "name": "Wyposażenie",
         "requestType": "Wyposażenie",
+        "noneLabel": "Bez wyposażenia",
         "order": 0,
         "tenantId": "skybike",
         "version": 1
@@ -1002,6 +1006,7 @@
         "id": "delivery",
         "name": "Dowóz",
         "requestType": "Dowóz",
+        "noneLabel": "Odbiór własny w punkcie",
         "order": 1,
         "tenantId": "skybike",
         "version": 1
@@ -1010,6 +1015,7 @@
         "id": "service",
         "name": "Serwis",
         "requestType": "Serwis",
+        "noneLabel": "Bez serwisu",
         "order": 2,
         "tenantId": "skybike",
         "version": 1
@@ -1024,6 +1030,7 @@
         "price": 2000,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": false,
         "active": true,
         "order": 0,
         "tenantId": "skybike",
@@ -1037,6 +1044,7 @@
         "price": 3000,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": false,
         "active": true,
         "order": 1,
         "tenantId": "skybike",
@@ -1050,6 +1058,7 @@
         "price": 3000,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": false,
         "active": true,
         "order": 2,
         "tenantId": "skybike",
@@ -1063,6 +1072,7 @@
         "price": 5000,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": false,
         "active": true,
         "order": 3,
         "tenantId": "skybike",
@@ -1076,6 +1086,7 @@
         "price": 10000,
         "limitedByVehicle": true,
         "stock": null,
+        "needsAddress": true,
         "active": true,
         "order": 100,
         "tenantId": "skybike",
@@ -1089,6 +1100,7 @@
         "price": null,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": true,
         "active": true,
         "order": 101,
         "tenantId": "skybike",
@@ -1102,6 +1114,7 @@
         "price": null,
         "limitedByVehicle": false,
         "stock": null,
+        "needsAddress": false,
         "active": true,
         "order": 102,
         "tenantId": "skybike",
@@ -1206,6 +1219,125 @@
         "id": "email",
         "name": "E-mail",
         "order": 3,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "content": [
+      {
+        "id": "hero",
+        "kind": "hero",
+        "title": "Wypożycz rower w Szczyrku",
+        "body": "Wybierz termin, rozmiar i liczbę rowerów. Od razu widzisz, co jest wolne i ile zapłacisz.",
+        "image": "hero.webp",
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "benefit-packages",
+        "kind": "benefit",
+        "title": "Kilka dni, jedna korzystniejsza kwota",
+        "body": "Pakiet 2 lub 3 kolejnych dni liczymy automatycznie. Dłużej niż 3 dni? Przygotujemy ofertę całego pobytu.",
+        "image": null,
+        "active": true,
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "benefit-groups",
+        "kind": "benefit",
+        "title": "Jedziecie razem?",
+        "body": "Od 4 rowerów naliczamy 5% rabatu na całe zamówienie. Cenę i szczegóły potwierdzimy po otrzymaniu rezerwacji.",
+        "image": null,
+        "active": true,
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "benefit-delivery",
+        "kind": "benefit",
+        "title": "Dowóz i serwis",
+        "body": "Dowóz z odbiorem w Szczyrku: propozycja 100 zł za 2 kursy. Dalsza trasa, dodatkowe kursy i serwis — indywidualnie.",
+        "image": null,
+        "active": true,
+        "order": 3,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "faq-hours",
+        "kind": "faq",
+        "title": "Czy mogę wypożyczyć rower tylko na kilka godzin?",
+        "body": "Tak. Najem godzinowy trwa od 1 do 9 godzin między 9:00 a 18:00. Do 4 godzin obowiązuje osobna cena, powyżej cena dnia.",
+        "image": null,
+        "active": true,
+        "order": 4,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "faq-long",
+        "kind": "faq",
+        "title": "Co, jeśli potrzebuję roweru na dłużej niż 3 dni?",
+        "body": "Wyślij rezerwację, a przygotujemy ofertę całego pobytu.",
+        "image": null,
+        "active": true,
+        "order": 5,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "faq-gear",
+        "kind": "faq",
+        "title": "Jakie wyposażenie mogę dobrać?",
+        "body": "Kask MTB, kask full face, ochraniacze kolan i łokci albo pełny zestaw. Ceny za sztukę za dzień zobaczysz w koszyku.",
+        "image": null,
+        "active": true,
+        "order": 6,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "faq-delivery",
+        "kind": "faq",
+        "title": "Czy dowieziecie rowery pod adres?",
+        "body": "Tak, w Szczyrku z odbiorem po zakończeniu najmu. Dalszą trasę wyceniamy indywidualnie.",
+        "image": null,
+        "active": true,
+        "order": 7,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "users": [
+      {
+        "id": "user-admin",
+        "name": "Administrator (przykład)",
+        "email": "admin@example.com",
+        "role": "admin",
+        "active": true,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "user-team",
+        "name": "Ola (przykład)",
+        "email": "ola@example.com",
+        "role": "team",
+        "active": true,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "user-driver",
+        "name": "Marek (przykład)",
+        "email": "marek@example.com",
+        "role": "driver",
+        "active": true,
         "tenantId": "skybike",
         "version": 1
       }

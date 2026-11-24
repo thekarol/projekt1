@@ -29,6 +29,7 @@ const catalog: Catalog = {
     delivery: { vehicleCapacity: 8 },
     payments: { onlineEnabled: true },
     calendar: { lowStockThreshold: 2, horizonDays: 60 },
+    booking: { sameDayDaysUntil: null },
   },
   bands: [
     rec({ id: 'h2', kind: 'hours' as const, maxHours: 2, label: 'Do 2 h', order: 0 }),
@@ -55,13 +56,15 @@ const catalog: Catalog = {
   ],
   units,
   unitOutages: [],
-  serviceCategories: [rec({ id: 'transport', name: 'Transport', requestType: 'Transport', order: 0 })],
-  services: [rec({ id: 'bus', categoryId: 'transport', name: 'Powrót busem', billing: 'perUnit' as const, price: 1500, limitedByVehicle: false, stock: null, active: true, order: 0 })],
+  serviceCategories: [rec({ id: 'transport', name: 'Transport', requestType: 'Transport', noneLabel: 'Bez transportu', order: 0 })],
+  services: [rec({ id: 'bus', categoryId: 'transport', name: 'Powrót busem', billing: 'perUnit' as const, price: 1500, limitedByVehicle: false, stock: null, needsAddress: false, active: true, order: 0 })],
   statuses: [
     rec({ id: 'zapytanie', name: 'Zapytanie', order: 0, blocksStock: false, isInitial: true, tone: 'new' as const }),
     rec({ id: 'zadatek', name: 'Zadatek wpłacony', order: 1, blocksStock: true, isInitial: false, tone: 'ok' as const }),
   ],
   channels: [rec({ id: 'tel', name: 'Telefon', order: 0 })],
+  content: [],
+  users: [],
 };
 
 describe('drugi najemca: inna flota, progi, godziny, statusy i rabat', () => {

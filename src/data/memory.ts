@@ -241,6 +241,10 @@ export class MemoryRepository implements Repository {
     return clone(this.#catalog);
   }
 
+  async currentImpact(): Promise<Impact> {
+    return this.#impact(this.#catalog);
+  }
+
   async previewRecord<K extends CollectionName>(collection: K, record: RecordOf<K>): Promise<Impact> {
     const list = this.#catalog[collection] as Versioned[];
     const next = list.some((r) => r.id === record.id)
@@ -284,6 +288,16 @@ export class MemoryRepository implements Repository {
       (collection === 'channels' && this.#reservations.some((r) => r.channelId === id));
     if (used) return { ok: false, error: { code: 'invalid', errors: [`${collection}/${id}: used by reservations`] } };
     const candidate = { ...this.#catalog, [collection]: list.filter((r) => r.id !== id) } as Catalog;
+    // Rows that only make sense with the removed record go with it.
+    if (collection === 'bands') candidate.rates = candidate.rates.filter((r) => r.bandId !== id);
+    if (collection === 'tariffs') candidate.rates = candidate.rates.filter((r) => r.tariffId !== id);
+    if (collection === 'variants') {
+      candidate.rates = candidate.rates.filter((r) => r.variantId !== id);
+      const gone = new Set(candidate.units.filter((u) => u.variantId === id).map((u) => u.id));
+      candidate.units = candidate.units.filter((u) => !gone.has(u.id));
+      candidate.unitOutages = candidate.unitOutages.filter((o) => !gone.has(o.unitId));
+    }
+    if (collection === 'units') candidate.unitOutages = candidate.unitOutages.filter((o) => o.unitId !== id);
     const error = this.#commit(candidate);
     if (error) return { ok: false, error };
     this.#log(options.actor, collection, id, 'delete', current, null, options.note);
@@ -316,6 +330,8 @@ export class MemoryRepository implements Repository {
     if (!(Number.isInteger(next.groupDiscount.minUnits) && next.groupDiscount.minUnits >= 1)) errors.push('groupDiscount.minUnits');
     if (!(Number.isInteger(next.delivery.vehicleCapacity) && next.delivery.vehicleCapacity >= 0)) errors.push('delivery.vehicleCapacity');
     if (!(next.hourly.stepMinutes > 0 && next.hourly.minHours > 0 && next.hourly.maxHours >= next.hourly.minHours)) errors.push('hourly');
+    const until = next.booking.sameDayDaysUntil;
+    if (until !== null && !(Number.isInteger(until) && until >= 0 && until <= 1440)) errors.push('booking.sameDayDaysUntil');
     if (!(next.maxRentalDays >= 1) || !(next.mixedRoundingGrosze >= 1)) errors.push('maxRentalDays/mixedRoundingGrosze');
     if (errors.length > 0) return { ok: false, error: { code: 'invalid', errors } };
     const candidate: Catalog = { ...this.#catalog, settings: next };

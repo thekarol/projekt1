@@ -246,6 +246,16 @@ describe('dostępność: reguły zamówienia', () => {
     assert.deepEqual(validateOrder(catalog, hours(D, 13, 15, [['ns-m', 1]]), now), []);
     assert.deepEqual(validateOrder(catalog, days('2027-07-07', '2027-07-08', [['ns-m', 1]]), now), []);
   });
+  it('najem dniowy na dziś: w sklepie do godziny ustawionej w panelu (start 12:00)', () => {
+    const order = days('2027-07-06', '2027-07-06', [['ns-m', 1]]);
+    assert.deepEqual(validateOrder(catalog, order, { date: '2027-07-06', minute: 12 * 60 }), []);
+    assert.deepEqual(validateOrder(catalog, order, { date: '2027-07-06', minute: 12 * 60 + 1 }), [{ code: 'sameDayClosed', until: 720 }]);
+    const later = applyPatch(catalog, { settings: { booking: { sameDayDaysUntil: 15 * 60 } } });
+    assert.deepEqual(validateOrder(later, order, { date: '2027-07-06', minute: 14 * 60 }), []);
+    const never = applyPatch(catalog, { settings: { booking: { sameDayDaysUntil: null } } });
+    assert.deepEqual(codes(validateOrder(never, order, { date: '2027-07-06', minute: 8 * 60 })), ['sameDayClosed']);
+    assert.deepEqual(validateOrder(catalog, hours('2027-07-06', 15, 17, [['ns-m', 1]]), { date: '2027-07-06', minute: 14 * 60 }), []);
+  });
 });
 
 describe('dostępność: kalendarz', () => {

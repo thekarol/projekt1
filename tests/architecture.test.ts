@@ -27,6 +27,32 @@ describe('architektura', () => {
       }
     }
   });
+  it('app importuje tylko z core i z app, bez przeglądarki i bez repozytorium', () => {
+    for (const file of dir('../src/app/')) {
+      for (const spec of importsOf(`../src/app/${file}`)) {
+        assert.match(spec, /^(\.\.\/core\/[a-z]+\.ts|\.\/[a-z]+\.ts)$/, `${file} importuje ${spec}`);
+      }
+      const text = readFileSync(new URL(`../src/app/${file}`, import.meta.url), 'utf8');
+      assert.ok(!/\b(document\.|globalThis\.|localStorage)/.test(text), `${file} sięga do przeglądarki`);
+    }
+  });
+  it('widoki znają tylko interfejs repozytorium; implementację wybiera wyłącznie main.tsx', () => {
+    const files = readdirSync(new URL('../src/ui/', import.meta.url)).filter((f) => f.endsWith('.tsx'));
+    assert.ok(files.length >= 8);
+    for (const file of files) {
+      for (const spec of importsOf(`../src/ui/${file}`)) {
+        if (file === 'main.tsx') continue;
+        assert.ok(!/data\/(memory|seed)/.test(spec), `${file} importuje ${spec}`);
+        assert.match(spec, /^(react|react-dom\/client|\.\.\/(core|app)\/[a-z]+\.ts|\.\.\/data\/repository\.ts|\.\/[a-z]+\.tsx)$/, `${file} importuje ${spec}`);
+      }
+    }
+  });
+  it('widoki nie zawierają nazw modeli, taryf ani kwot najemcy', () => {
+    for (const file of readdirSync(new URL('../src/ui/', import.meta.url)).filter((f) => f.endsWith('.tsx') && f !== 'main.tsx' && f !== 'about.tsx')) {
+      const text = readFileSync(new URL(`../src/ui/${file}`, import.meta.url), 'utf8');
+      assert.ok(!/cannondale|ktm|e-fine|wolne terminy|duży popyt|szczyrk/i.test(text), `${file} zawiera dane najemcy`);
+    }
+  });
   it('silniki nie czytają zegara ani losowości', () => {
     for (const file of ['pricing.ts', 'availability.ts', 'calendar.ts', 'validate.ts', 'money.ts']) {
       const text = readFileSync(new URL(`../src/core/${file}`, import.meta.url), 'utf8');

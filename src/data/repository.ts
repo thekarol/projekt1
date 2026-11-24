@@ -31,7 +31,9 @@ export type CollectionName =
   | 'serviceCategories'
   | 'services'
   | 'statuses'
-  | 'channels';
+  | 'channels'
+  | 'content'
+  | 'users';
 
 export type RecordOf<K extends CollectionName> = Catalog[K][number];
 
@@ -101,6 +103,8 @@ export interface Repository {
   removeRecord(collection: CollectionName, id: Id, options: WriteOptions): Promise<WriteResult<null>>;
   setRates(rates: Array<Omit<Rate, 'tenantId'>>, options: WriteOptions): Promise<WriteResult<null>>;
   updateSettings(patch: DeepPartial<Omit<Settings, 'tenantId' | 'version'>>, options: WriteOptions): Promise<WriteResult<Settings>>;
+  /** Overbookings and closed days with reservations as things stand now. */
+  currentImpact(): Promise<Impact>;
   /** Shows what a change would do without saving it. */
   previewRecord<K extends CollectionName>(collection: K, record: RecordOf<K>): Promise<Impact>;
 

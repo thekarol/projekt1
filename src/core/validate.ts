@@ -28,6 +28,8 @@ export function validateCatalog(catalog: Catalog): CatalogCheck {
     ['services', catalog.services],
     ['statuses', catalog.statuses],
     ['channels', catalog.channels],
+    ['content', catalog.content],
+    ['users', catalog.users],
   ];
   for (const [name, list] of collections) {
     if (list.some((record) => record.tenantId !== tenantId)) errors.push(`${name}: record of another tenant`);

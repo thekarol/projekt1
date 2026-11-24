@@ -32,6 +32,7 @@ export type Problem =
   | { code: 'outsideHours'; open: Minutes; close: Minutes }
   | { code: 'closed'; dates: ISODate[] }
   | { code: 'past' }
+  | { code: 'sameDayClosed'; until: Minutes | null }
   | { code: 'empty' }
   | { code: 'invalidQuantity'; refId: Id }
   | { code: 'unknownVariant'; variantId: Id }
@@ -217,6 +218,10 @@ export function validateOrder(catalog: Catalog, order: OrderInput, now?: Zoned):
     const pastDay = order.startDate < now.date;
     const pastHour = order.mode === 'hours' && startsAt < absMinute(now.date, now.minute);
     if (pastDay || pastHour) problems.push({ code: 'past' });
+    else if (order.mode === 'days' && order.startDate === now.date) {
+      const until = settings.booking.sameDayDaysUntil;
+      if (until === null || now.minute > until) problems.push({ code: 'sameDayClosed', until });
+    }
   }
 
   if (order.items.length === 0 && order.services.length === 0) problems.push({ code: 'empty' });
