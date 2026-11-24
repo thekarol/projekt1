@@ -1,0 +1,99 @@
+{
+  "_opis": "Decyzje właściciela z 2026-11-24 uzupełniające dane startowe. Razem z dane-startowe.json tworzą dane startowe pokazu (scripts/build-seed.ts). Wszystko tutaj jest potem edytowalne w panelu administratora.",
+  "najemca": { "id": "skybike", "prefiksZgloszen": "SB", "slownik": { "unit": "rower", "units": "rowery", "point": "wypożyczalnia" } },
+  "modele": {
+    "ns": { "id": "ns", "prefiksKodu": "NS", "rozmiary": { "S": 3, "M": 3, "L": 3 } },
+    "cannodale": { "id": "cannondale", "prefiksKodu": "CJ", "rozmiary": { "M": 2, "L": 1 } },
+    "ktm": { "id": "ktm", "prefiksKodu": "KTM", "rozmiary": { "L": 4 } }
+  },
+  "progi": [
+    { "id": "short", "klucz": "do4h", "rodzaj": "hours", "maxGodzin": 4, "etykieta": "Do 4 h" },
+    { "id": "day", "klucz": "dzien", "rodzaj": "day", "etykieta": "Dzień" },
+    { "id": "days2", "klucz": "dni2", "rodzaj": "days", "dni": 2, "etykieta": "2 dni" },
+    { "id": "days3", "klucz": "dni3", "rodzaj": "days", "dni": 3, "etykieta": "3 dni" }
+  ],
+  "sezony": {
+    "standard": null,
+    "quiet": { "miesiace": [5, 6], "dniTygodnia": [1, 2, 3, 4] },
+    "peak": { "miesiace": [9, 10], "dniTygodnia": [] }
+  },
+  "wyjatkiDat": [
+    { "id": "ex-2027-05-03", "od": "2027-05-03", "do": "2027-05-03", "dzialanie": "taryfa", "taryfa": "standard", "notatka": "Święto 3 Maja" },
+    { "id": "ex-2027-05-27", "od": "2027-05-27", "do": "2027-05-27", "dzialanie": "taryfa", "taryfa": "standard", "notatka": "Boże Ciało" },
+    { "id": "ex-2026-12-24", "od": "2026-12-24", "do": "2026-12-24", "dzialanie": "zamkniete", "notatka": "Wigilia (przykład dnia zamkniętego)" }
+  ],
+  "godziny": [{ "id": "hours-default", "okres": null, "dniTygodnia": [1, 2, 3, 4, 5, 6, 7], "od": "09:00", "do": "18:00" }],
+  "ustawienia": {
+    "krokGodzinMinuty": 60,
+    "zaokraglenieTerminuMieszanegoGrosze": 100,
+    "rabatGrupowy": { "aktywny": true, "odSztuk": 4, "procent": 5, "podstawa": "order", "oznaczaDoUstalenia": true },
+    "limitAutaPrzyDowozie": 4,
+    "platnosciOnline": true,
+    "progOstatnichSztuk": 1,
+    "horyzontKalendarzaDni": 365
+  },
+  "statusy": [
+    { "id": "new", "nazwa": "Nowe", "blokuje": true, "poczatkowy": true, "ton": "new" },
+    { "id": "contact", "nazwa": "Komunikacja z klientem", "blokuje": true, "poczatkowy": false, "ton": "progress" },
+    { "id": "confirmed", "nazwa": "Potwierdzone", "blokuje": true, "poczatkowy": false, "ton": "ok" },
+    { "id": "issued", "nazwa": "Wydane", "blokuje": true, "poczatkowy": false, "ton": "out" },
+    { "id": "returned", "nazwa": "Zwrócone", "blokuje": false, "poczatkowy": false, "ton": "done" },
+    { "id": "rejected", "nazwa": "Odrzucone", "blokuje": false, "poczatkowy": false, "ton": "off" },
+    { "id": "cancelled", "nazwa": "Anulowane", "blokuje": false, "poczatkowy": false, "ton": "off" }
+  ],
+  "kanaly": [
+    { "id": "web", "nazwa": "Strona internetowa" },
+    { "id": "phone", "nazwa": "Telefon" },
+    { "id": "visit", "nazwa": "Wizyta w punkcie" },
+    { "id": "email", "nazwa": "E-mail" }
+  ],
+  "kategorieUslug": [
+    { "id": "equipment", "nazwa": "Wyposażenie", "rodzajZgloszenia": "Wyposażenie" },
+    { "id": "delivery", "nazwa": "Dowóz", "rodzajZgloszenia": "Dowóz" },
+    { "id": "service", "nazwa": "Serwis", "rodzajZgloszenia": "Serwis" }
+  ],
+  "uslugiDodatkowe": [
+    { "id": "delivery-city", "kategoria": "delivery", "nazwa": "Dowóz z odbiorem w Szczyrku", "naliczanie": "fixed", "cenaZDanych": "dowoz.wSzczyrku.cena", "limitAuta": true },
+    { "id": "delivery-outside", "kategoria": "delivery", "nazwa": "Dowóz poza Szczyrk", "naliczanie": "quote" },
+    { "id": "service-help", "kategoria": "service", "nazwa": "Serwis lub pomoc w trasie", "naliczanie": "quote" }
+  ],
+  "przykladoweZgloszenia": [
+    {
+      "numer": "SB-2027-0001", "zgloszono": "2027-05-20T10:15:00+02:00", "zrodlo": "manual", "kanal": "phone", "status": "confirmed",
+      "klient": { "imie": "Jan Wzorcowy", "telefon": "500 100 201", "email": "jan@example.com" },
+      "tryb": "days", "od": "2027-06-05", "do": "2027-06-06",
+      "rowery": [{ "wariant": "ns-m", "ile": 3 }, { "wariant": "ns-l", "ile": 3 }, { "wariant": "ktm-l", "ile": 2 }],
+      "uslugi": [{ "usluga": "delivery-city", "ile": 1 }], "notatka": "Grupa firmowa, dowóz pod pensjonat."
+    },
+    {
+      "numer": "SB-2027-0002", "zgloszono": "2027-06-01T08:40:00+02:00", "zrodlo": "shop", "kanal": "web", "status": "returned",
+      "klient": { "imie": "Ewa Testowa", "telefon": "500 100 202", "email": "ewa@example.com" },
+      "tryb": "days", "od": "2027-06-03", "do": "2027-06-03",
+      "rowery": [{ "wariant": "cannondale-l", "ile": 1 }], "uslugi": [], "notatka": ""
+    },
+    {
+      "numer": "SB-2027-0003", "zgloszono": "2027-06-02T17:05:00+02:00", "zrodlo": "shop", "kanal": "web", "status": "cancelled",
+      "klient": { "imie": "Piotr Próbny", "telefon": "500 100 203", "email": "piotr@example.com" },
+      "tryb": "days", "od": "2027-06-09", "do": "2027-06-09",
+      "rowery": [{ "wariant": "ns-s", "ile": 1 }], "uslugi": [], "notatka": "Klient zrezygnował."
+    },
+    {
+      "numer": "SB-2027-0004", "zgloszono": "2027-06-07T12:30:00+02:00", "zrodlo": "shop", "kanal": "web", "status": "confirmed",
+      "klient": { "imie": "Anna Przykładowa", "telefon": "500 100 200", "email": "anna@example.com" },
+      "tryb": "hours", "od": "2027-06-12", "do": "2027-06-12", "odGodziny": "10:00", "doGodziny": "14:00",
+      "rowery": [{ "wariant": "cannondale-m", "ile": 2 }], "uslugi": [{ "usluga": "mtb", "ile": 2 }], "notatka": ""
+    },
+    {
+      "numer": "SB-2027-0005", "zgloszono": "2027-06-08T14:32:00+02:00", "zrodlo": "shop", "kanal": "web", "status": "new",
+      "klient": { "imie": "Marta Pokazowa", "telefon": "500 100 204", "email": "marta@example.com" },
+      "tryb": "days", "od": "2027-06-13", "do": "2027-06-13",
+      "rowery": [{ "wariant": "ns-m", "ile": 2 }], "uslugi": [{ "usluga": "fullkit", "ile": 2 }], "notatka": ""
+    },
+    {
+      "numer": "SB-2027-0006", "zgloszono": "2027-06-10T09:12:00+02:00", "zrodlo": "manual", "kanal": "email", "status": "contact",
+      "klient": { "imie": "Tomasz Demo", "telefon": "500 100 205", "email": "tomasz@example.com" },
+      "tryb": "days", "od": "2027-06-18", "do": "2027-06-20",
+      "rowery": [{ "wariant": "ktm-l", "ile": 4 }], "uslugi": [{ "usluga": "service-help", "ile": 1 }], "notatka": "Pyta o serwis w trasie."
+    }
+  ]
+}

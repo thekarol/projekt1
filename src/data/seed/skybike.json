@@ -1,0 +1,1396 @@
+{
+  "catalog": {
+    "tenant": {
+      "id": "skybike",
+      "name": "SKY BIKE",
+      "address": "ul. Wczasowa 26, 43-370 Szczyrk",
+      "locale": "pl-PL",
+      "currency": "PLN",
+      "timeZone": "Europe/Warsaw",
+      "reservationPrefix": "SB",
+      "dictionary": {
+        "unit": "rower",
+        "units": "rowery",
+        "point": "wypożyczalnia"
+      }
+    },
+    "settings": {
+      "tenantId": "skybike",
+      "version": 1,
+      "hourly": {
+        "minHours": 1,
+        "maxHours": 9,
+        "stepMinutes": 60
+      },
+      "maxRentalDays": 30,
+      "mixedRoundingGrosze": 100,
+      "groupDiscount": {
+        "active": true,
+        "minUnits": 4,
+        "percent": 5,
+        "base": "order",
+        "marksToBeAgreed": true
+      },
+      "limits": {
+        "unitsPerOrder": 100,
+        "unitsPerProduct": 50
+      },
+      "delivery": {
+        "vehicleCapacity": 4
+      },
+      "payments": {
+        "onlineEnabled": true
+      },
+      "calendar": {
+        "lowStockThreshold": 1,
+        "horizonDays": 365
+      }
+    },
+    "bands": [
+      {
+        "id": "short",
+        "kind": "hours",
+        "maxHours": 4,
+        "label": "Do 4 h",
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "day",
+        "kind": "day",
+        "label": "Dzień",
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "days2",
+        "kind": "days",
+        "days": 2,
+        "label": "2 dni",
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "days3",
+        "kind": "days",
+        "days": 3,
+        "label": "3 dni",
+        "order": 3,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "tariffs": [
+      {
+        "id": "standard",
+        "name": "Bazowy",
+        "isBase": true,
+        "priority": 0,
+        "active": true,
+        "season": null,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "quiet",
+        "name": "Wolne terminy",
+        "isBase": false,
+        "priority": 10,
+        "active": true,
+        "season": {
+          "months": [
+            5,
+            6
+          ],
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "peak",
+        "name": "Duży popyt",
+        "isBase": false,
+        "priority": 10,
+        "active": true,
+        "season": {
+          "months": [
+            9,
+            10
+          ],
+          "weekdays": []
+        },
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "rates": [
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ktm-l",
+        "bandId": "short",
+        "amount": 16000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ktm-l",
+        "bandId": "day",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ktm-l",
+        "bandId": "days2",
+        "amount": 37000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ktm-l",
+        "bandId": "days3",
+        "amount": 54000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ktm-l",
+        "bandId": "short",
+        "amount": 16000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ktm-l",
+        "bandId": "day",
+        "amount": 18000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ktm-l",
+        "bandId": "days2",
+        "amount": 35000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ktm-l",
+        "bandId": "days3",
+        "amount": 51000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ktm-l",
+        "bandId": "short",
+        "amount": 17000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ktm-l",
+        "bandId": "day",
+        "amount": 21000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ktm-l",
+        "bandId": "days2",
+        "amount": 39000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ktm-l",
+        "bandId": "days3",
+        "amount": 57000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-s",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-s",
+        "bandId": "day",
+        "amount": 25000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-s",
+        "bandId": "days2",
+        "amount": 45000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-s",
+        "bandId": "days3",
+        "amount": 65000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-s",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-s",
+        "bandId": "day",
+        "amount": 23000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-s",
+        "bandId": "days2",
+        "amount": 44000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-s",
+        "bandId": "days3",
+        "amount": 63000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-s",
+        "bandId": "short",
+        "amount": 22000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-s",
+        "bandId": "day",
+        "amount": 27000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-s",
+        "bandId": "days2",
+        "amount": 49000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-s",
+        "bandId": "days3",
+        "amount": 71000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-m",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-m",
+        "bandId": "day",
+        "amount": 25000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-m",
+        "bandId": "days2",
+        "amount": 45000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-m",
+        "bandId": "days3",
+        "amount": 65000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-m",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-m",
+        "bandId": "day",
+        "amount": 23000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-m",
+        "bandId": "days2",
+        "amount": 44000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-m",
+        "bandId": "days3",
+        "amount": 63000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-m",
+        "bandId": "short",
+        "amount": 22000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-m",
+        "bandId": "day",
+        "amount": 27000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-m",
+        "bandId": "days2",
+        "amount": 49000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-m",
+        "bandId": "days3",
+        "amount": 71000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-l",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-l",
+        "bandId": "day",
+        "amount": 25000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-l",
+        "bandId": "days2",
+        "amount": 45000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "ns-l",
+        "bandId": "days3",
+        "amount": 65000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-l",
+        "bandId": "short",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-l",
+        "bandId": "day",
+        "amount": 23000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-l",
+        "bandId": "days2",
+        "amount": 44000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "ns-l",
+        "bandId": "days3",
+        "amount": 63000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-l",
+        "bandId": "short",
+        "amount": 22000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-l",
+        "bandId": "day",
+        "amount": 27000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-l",
+        "bandId": "days2",
+        "amount": 49000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "ns-l",
+        "bandId": "days3",
+        "amount": 71000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-m",
+        "bandId": "short",
+        "amount": 15000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-m",
+        "bandId": "day",
+        "amount": 19000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-m",
+        "bandId": "days2",
+        "amount": 35000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-m",
+        "bandId": "days3",
+        "amount": 50000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-m",
+        "bandId": "short",
+        "amount": 15000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-m",
+        "bandId": "day",
+        "amount": 18000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-m",
+        "bandId": "days2",
+        "amount": 34000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-m",
+        "bandId": "days3",
+        "amount": 49000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-m",
+        "bandId": "short",
+        "amount": 16000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-m",
+        "bandId": "day",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-m",
+        "bandId": "days2",
+        "amount": 38000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-m",
+        "bandId": "days3",
+        "amount": 55000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-l",
+        "bandId": "short",
+        "amount": 15000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-l",
+        "bandId": "day",
+        "amount": 19000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-l",
+        "bandId": "days2",
+        "amount": 35000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "standard",
+        "variantId": "cannondale-l",
+        "bandId": "days3",
+        "amount": 50000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-l",
+        "bandId": "short",
+        "amount": 15000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-l",
+        "bandId": "day",
+        "amount": 18000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-l",
+        "bandId": "days2",
+        "amount": 34000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "quiet",
+        "variantId": "cannondale-l",
+        "bandId": "days3",
+        "amount": 49000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-l",
+        "bandId": "short",
+        "amount": 16000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-l",
+        "bandId": "day",
+        "amount": 20000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-l",
+        "bandId": "days2",
+        "amount": 38000
+      },
+      {
+        "tenantId": "skybike",
+        "tariffId": "peak",
+        "variantId": "cannondale-l",
+        "bandId": "days3",
+        "amount": 55000
+      }
+    ],
+    "dateExceptions": [
+      {
+        "id": "ex-2027-05-03",
+        "from": "2027-05-03",
+        "to": "2027-05-03",
+        "action": {
+          "kind": "tariff",
+          "tariffId": "standard"
+        },
+        "note": "Święto 3 Maja",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ex-2027-05-27",
+        "from": "2027-05-27",
+        "to": "2027-05-27",
+        "action": {
+          "kind": "tariff",
+          "tariffId": "standard"
+        },
+        "note": "Boże Ciało",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ex-2026-12-24",
+        "from": "2026-12-24",
+        "to": "2026-12-24",
+        "action": {
+          "kind": "closed"
+        },
+        "note": "Wigilia (przykład dnia zamkniętego)",
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "openingRules": [
+      {
+        "id": "hours-default",
+        "period": null,
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "closed": false,
+        "open": 540,
+        "close": 1080,
+        "priority": 0,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "products": [
+      {
+        "id": "ktm",
+        "name": "KTM Macina 893",
+        "codePrefix": "KTM",
+        "typeLabel": "E-MTB hardtail",
+        "audience": "Dla osób szukających wycieczek ze wspomaganiem po szutrach, drogach leśnych i odpowiednio dobranych trasach górskich.",
+        "use": "Turystyka terenowa i wspomagane podjazdy. Sztywny tył: nie jest zamiennikiem fulla enduro.",
+        "specification": "Aluminium, koła 29″, widelec 120 mm, Bosch CX, bateria 800 Wh, CUES 10 biegów. Pełna nazwa i zgodność wyposażenia egzemplarza wymagają potwierdzenia.",
+        "image": "ktm-macina-893.webp",
+        "route": null,
+        "tileFields": [
+          "image",
+          "name",
+          "type",
+          "price",
+          "sizes"
+        ],
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ns",
+        "name": "NS Bikes E-Fine 1",
+        "codePrefix": "NS",
+        "typeLabel": "E-enduro, pełne zawieszenie",
+        "audience": "Dla osób planujących górskie podjazdy ze wspomaganiem i sportowe zjazdy, z umiejętnościami odpowiednimi do wybranej trasy.",
+        "use": "Wspomagane podjazdy, terenowe wycieczki i wymagająca jazda górska.",
+        "specification": "Aluminium, zawieszenie 170/160 mm, koła 29/27,5″, bateria 630 Wh, Deore 12 biegów. Kompletacja egzemplarzy 2025 do potwierdzenia.",
+        "image": "ns-bikes-e-fine.jpg",
+        "route": null,
+        "tileFields": [
+          "image",
+          "name",
+          "type",
+          "price",
+          "sizes"
+        ],
+        "active": true,
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "cannondale",
+        "name": "Cannondale Jekyll 2",
+        "codePrefix": "CJ",
+        "typeLabel": "Enduro, bez silnika, pełne zawieszenie",
+        "audience": "Dla osób jeżdżących sportowo, szukających technicznych zjazdów i bike parku, które akceptują podjazdy bez silnika lub korzystają z wyciągu.",
+        "use": "Enduro i wymagające zjazdy. Dobór trasy, rozmiaru i ochrony do umiejętności.",
+        "specification": "Rama karbonowa, skok tyłu 165 mm, ZEB Select 170 mm, Deore 12 biegów, hamulce M6120. Kod wersji i rocznik własnych egzemplarzy nie zostały potwierdzone.",
+        "image": "cannondale-jekyll.jpg",
+        "route": null,
+        "tileFields": [
+          "image",
+          "name",
+          "type",
+          "price",
+          "sizes"
+        ],
+        "active": true,
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "variants": [
+      {
+        "id": "ktm-l",
+        "productId": "ktm",
+        "label": "L",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ns-s",
+        "productId": "ns",
+        "label": "S",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ns-m",
+        "productId": "ns",
+        "label": "M",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "ns-l",
+        "productId": "ns",
+        "label": "L",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "cannondale-m",
+        "productId": "cannondale",
+        "label": "M",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "cannondale-l",
+        "productId": "cannondale",
+        "label": "L",
+        "bufferMinutes": 0,
+        "active": true,
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "units": [
+      {
+        "id": "u-ktm-l-01",
+        "variantId": "ktm-l",
+        "code": "KTM-L-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ktm-l-02",
+        "variantId": "ktm-l",
+        "code": "KTM-L-02",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ktm-l-03",
+        "variantId": "ktm-l",
+        "code": "KTM-L-03",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ktm-l-04",
+        "variantId": "ktm-l",
+        "code": "KTM-L-04",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-s-01",
+        "variantId": "ns-s",
+        "code": "NS-S-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-s-02",
+        "variantId": "ns-s",
+        "code": "NS-S-02",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-s-03",
+        "variantId": "ns-s",
+        "code": "NS-S-03",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-m-01",
+        "variantId": "ns-m",
+        "code": "NS-M-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-m-02",
+        "variantId": "ns-m",
+        "code": "NS-M-02",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-m-03",
+        "variantId": "ns-m",
+        "code": "NS-M-03",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-l-01",
+        "variantId": "ns-l",
+        "code": "NS-L-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-l-02",
+        "variantId": "ns-l",
+        "code": "NS-L-02",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-ns-l-03",
+        "variantId": "ns-l",
+        "code": "NS-L-03",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-cj-m-01",
+        "variantId": "cannondale-m",
+        "code": "CJ-M-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-cj-m-02",
+        "variantId": "cannondale-m",
+        "code": "CJ-M-02",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "u-cj-l-01",
+        "variantId": "cannondale-l",
+        "code": "CJ-L-01",
+        "activeFrom": null,
+        "retiredFrom": null,
+        "note": "",
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "unitOutages": [],
+    "serviceCategories": [
+      {
+        "id": "equipment",
+        "name": "Wyposażenie",
+        "requestType": "Wyposażenie",
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "delivery",
+        "name": "Dowóz",
+        "requestType": "Dowóz",
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "service",
+        "name": "Serwis",
+        "requestType": "Serwis",
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "services": [
+      {
+        "id": "mtb",
+        "categoryId": "equipment",
+        "name": "Kask MTB",
+        "billing": "perUnitPerDay",
+        "price": 2000,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "fullface",
+        "categoryId": "equipment",
+        "name": "Kask full face",
+        "billing": "perUnitPerDay",
+        "price": 3000,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "pads",
+        "categoryId": "equipment",
+        "name": "Kolana + łokcie",
+        "billing": "perUnitPerDay",
+        "price": 3000,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "fullkit",
+        "categoryId": "equipment",
+        "name": "Full face + kolana + łokcie",
+        "billing": "perUnitPerDay",
+        "price": 5000,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 3,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "delivery-city",
+        "categoryId": "delivery",
+        "name": "Dowóz z odbiorem w Szczyrku",
+        "billing": "fixed",
+        "price": 10000,
+        "limitedByVehicle": true,
+        "stock": null,
+        "active": true,
+        "order": 100,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "delivery-outside",
+        "categoryId": "delivery",
+        "name": "Dowóz poza Szczyrk",
+        "billing": "quote",
+        "price": null,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 101,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "service-help",
+        "categoryId": "service",
+        "name": "Serwis lub pomoc w trasie",
+        "billing": "quote",
+        "price": null,
+        "limitedByVehicle": false,
+        "stock": null,
+        "active": true,
+        "order": 102,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "statuses": [
+      {
+        "id": "new",
+        "name": "Nowe",
+        "order": 0,
+        "blocksStock": true,
+        "isInitial": true,
+        "tone": "new",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "contact",
+        "name": "Komunikacja z klientem",
+        "order": 1,
+        "blocksStock": true,
+        "isInitial": false,
+        "tone": "progress",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "confirmed",
+        "name": "Potwierdzone",
+        "order": 2,
+        "blocksStock": true,
+        "isInitial": false,
+        "tone": "ok",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "issued",
+        "name": "Wydane",
+        "order": 3,
+        "blocksStock": true,
+        "isInitial": false,
+        "tone": "out",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "returned",
+        "name": "Zwrócone",
+        "order": 4,
+        "blocksStock": false,
+        "isInitial": false,
+        "tone": "done",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "rejected",
+        "name": "Odrzucone",
+        "order": 5,
+        "blocksStock": false,
+        "isInitial": false,
+        "tone": "off",
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "cancelled",
+        "name": "Anulowane",
+        "order": 6,
+        "blocksStock": false,
+        "isInitial": false,
+        "tone": "off",
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ],
+    "channels": [
+      {
+        "id": "web",
+        "name": "Strona internetowa",
+        "order": 0,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "phone",
+        "name": "Telefon",
+        "order": 1,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "visit",
+        "name": "Wizyta w punkcie",
+        "order": 2,
+        "tenantId": "skybike",
+        "version": 1
+      },
+      {
+        "id": "email",
+        "name": "E-mail",
+        "order": 3,
+        "tenantId": "skybike",
+        "version": 1
+      }
+    ]
+  },
+  "reservations": [
+    {
+      "number": "SB-2027-0001",
+      "createdAt": "2027-05-20T10:15:00+02:00",
+      "source": "manual",
+      "channelId": "phone",
+      "statusId": "confirmed",
+      "customer": {
+        "name": "Jan Wzorcowy",
+        "phone": "500 100 201",
+        "email": "jan@example.com"
+      },
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-05",
+        "endDate": "2027-06-06",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 3
+          },
+          {
+            "variantId": "ns-l",
+            "quantity": 3
+          },
+          {
+            "variantId": "ktm-l",
+            "quantity": 2
+          }
+        ],
+        "services": [
+          {
+            "serviceId": "delivery-city",
+            "quantity": 1
+          }
+        ]
+      },
+      "notes": "Grupa firmowa, dowóz pod pensjonat."
+    },
+    {
+      "number": "SB-2027-0002",
+      "createdAt": "2027-06-01T08:40:00+02:00",
+      "source": "shop",
+      "channelId": "web",
+      "statusId": "returned",
+      "customer": {
+        "name": "Ewa Testowa",
+        "phone": "500 100 202",
+        "email": "ewa@example.com"
+      },
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-03",
+        "endDate": "2027-06-03",
+        "items": [
+          {
+            "variantId": "cannondale-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "notes": ""
+    },
+    {
+      "number": "SB-2027-0003",
+      "createdAt": "2027-06-02T17:05:00+02:00",
+      "source": "shop",
+      "channelId": "web",
+      "statusId": "cancelled",
+      "customer": {
+        "name": "Piotr Próbny",
+        "phone": "500 100 203",
+        "email": "piotr@example.com"
+      },
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-09",
+        "endDate": "2027-06-09",
+        "items": [
+          {
+            "variantId": "ns-s",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "notes": "Klient zrezygnował."
+    },
+    {
+      "number": "SB-2027-0004",
+      "createdAt": "2027-06-07T12:30:00+02:00",
+      "source": "shop",
+      "channelId": "web",
+      "statusId": "confirmed",
+      "customer": {
+        "name": "Anna Przykładowa",
+        "phone": "500 100 200",
+        "email": "anna@example.com"
+      },
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-06-12",
+        "endDate": "2027-06-12",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 2
+          }
+        ],
+        "services": [
+          {
+            "serviceId": "mtb",
+            "quantity": 2
+          }
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "number": "SB-2027-0005",
+      "createdAt": "2027-06-08T14:32:00+02:00",
+      "source": "shop",
+      "channelId": "web",
+      "statusId": "new",
+      "customer": {
+        "name": "Marta Pokazowa",
+        "phone": "500 100 204",
+        "email": "marta@example.com"
+      },
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-13",
+        "endDate": "2027-06-13",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 2
+          }
+        ],
+        "services": [
+          {
+            "serviceId": "fullkit",
+            "quantity": 2
+          }
+        ]
+      },
+      "notes": ""
+    },
+    {
+      "number": "SB-2027-0006",
+      "createdAt": "2027-06-10T09:12:00+02:00",
+      "source": "manual",
+      "channelId": "email",
+      "statusId": "contact",
+      "customer": {
+        "name": "Tomasz Demo",
+        "phone": "500 100 205",
+        "email": "tomasz@example.com"
+      },
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-18",
+        "endDate": "2027-06-20",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 4
+          }
+        ],
+        "services": [
+          {
+            "serviceId": "service-help",
+            "quantity": 1
+          }
+        ]
+      },
+      "notes": "Pyta o serwis w trasie."
+    }
+  ]
+}

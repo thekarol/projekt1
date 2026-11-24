@@ -1,0 +1,122 @@
+{
+  "_opis": "Dane startowe wypożyczalni SKY BIKE wyciągnięte z obecnej aplikacji (wersja kalkulacji skybike-pilot-2026-11-13-1). Kwoty w PLN brutto za jeden rower. To dane startowe do wpisania w panelu administratora, nie kod.",
+  "najemca": {
+    "nazwa": "SKY BIKE",
+    "adres": "ul. Wczasowa 26, 43-370 Szczyrk",
+    "jezyk": "pl",
+    "waluta": "PLN",
+    "strefaCzasowa": "Europe/Warsaw",
+    "godzinyOtwarcia": { "od": "09:00", "do": "18:00" }
+  },
+  "taryfy": [
+    {
+      "id": "standard",
+      "nazwa": "Bazowy",
+      "okres": "Pozostałe terminy",
+      "warunek": "domyślna, gdy żadna inna nie pasuje do wszystkich dni najmu",
+      "stawki": {
+        "ns": { "do4h": 200, "dzien": 250, "dni2": 450, "dni3": 650 },
+        "cannodale": { "do4h": 150, "dzien": 190, "dni2": 350, "dni3": 500 },
+        "ktm": { "do4h": 160, "dzien": 200, "dni2": 370, "dni3": 540 }
+      }
+    },
+    {
+      "id": "quiet",
+      "nazwa": "Wolne terminy",
+      "okres": "Maj–czerwiec, mały popyt",
+      "warunek": "wszystkie dni najmu w maju lub czerwcu i tylko od poniedziałku do czwartku; poza świętami i wydarzeniami (potwierdza obsługa)",
+      "stawki": {
+        "ns": { "do4h": 200, "dzien": 230, "dni2": 440, "dni3": 630 },
+        "cannodale": { "do4h": 150, "dzien": 180, "dni2": 340, "dni3": 490 },
+        "ktm": { "do4h": 160, "dzien": 180, "dni2": 350, "dni3": 510 }
+      }
+    },
+    {
+      "id": "peak",
+      "nazwa": "Duży popyt",
+      "okres": "Wrzesień–październik",
+      "warunek": "wszystkie dni najmu we wrześniu lub październiku (potwierdza obsługa)",
+      "stawki": {
+        "ns": { "do4h": 220, "dzien": 270, "dni2": 490, "dni3": 710 },
+        "cannodale": { "do4h": 160, "dzien": 200, "dni2": 380, "dni3": 550 },
+        "ktm": { "do4h": 170, "dzien": 210, "dni2": 390, "dni3": 570 }
+      }
+    }
+  ],
+  "flota": [
+    {
+      "id": "ktm",
+      "nazwa": "KTM Macina 893",
+      "typ": "E-MTB hardtail",
+      "zdjecie": "ktm-macina-893.webp",
+      "sztuk": 4,
+      "cenaReferencyjnaZaDzien": 250,
+      "dlaKogo": "Dla osób szukających wycieczek ze wspomaganiem po szutrach, drogach leśnych i odpowiednio dobranych trasach górskich.",
+      "zastosowanie": "Turystyka terenowa i wspomagane podjazdy. Sztywny tył: nie jest zamiennikiem fulla enduro.",
+      "specyfikacja": "Aluminium, koła 29″, widelec 120 mm, Bosch CX, bateria 800 Wh, CUES 10 biegów. Pełna nazwa i zgodność wyposażenia egzemplarza wymagają potwierdzenia.",
+      "trasaKomoot": 1
+    },
+    {
+      "id": "ns",
+      "nazwa": "NS Bikes E-Fine 1",
+      "typ": "E-enduro, pełne zawieszenie",
+      "zdjecie": "ns-bikes-e-fine.jpg",
+      "sztuk": 9,
+      "cenaReferencyjnaZaDzien": 250,
+      "dlaKogo": "Dla osób planujących górskie podjazdy ze wspomaganiem i sportowe zjazdy, z umiejętnościami odpowiednimi do wybranej trasy.",
+      "zastosowanie": "Wspomagane podjazdy, terenowe wycieczki i wymagająca jazda górska.",
+      "specyfikacja": "Aluminium, zawieszenie 170/160 mm, koła 29/27,5″, bateria 630 Wh, Deore 12 biegów. Kompletacja egzemplarzy 2025 do potwierdzenia.",
+      "trasaKomoot": 0
+    },
+    {
+      "id": "cannodale",
+      "nazwa": "Cannondale Jekyll 2",
+      "typ": "Enduro, bez silnika, pełne zawieszenie",
+      "zdjecie": "cannondale-jekyll.jpg",
+      "sztuk": 3,
+      "cenaReferencyjnaZaDzien": 250,
+      "dlaKogo": "Dla osób jeżdżących sportowo, szukających technicznych zjazdów i bike parku, które akceptują podjazdy bez silnika lub korzystają z wyciągu.",
+      "zastosowanie": "Enduro i wymagające zjazdy. Dobór trasy, rozmiaru i ochrony do umiejętności.",
+      "specyfikacja": "Rama karbonowa, skok tyłu 165 mm, ZEB Select 170 mm, Deore 12 biegów, hamulce M6120. Kod wersji i rocznik własnych egzemplarzy nie zostały potwierdzone.",
+      "trasaKomoot": 0
+    }
+  ],
+  "rozmiaryS_M_L": {
+    "_uwaga": "Obecna aplikacja zna tylko łączną liczbę sztuk modelu. Podział na S/M/L jest do uzupełnienia przez właściciela (pytanie otwarte 4 w specyfikacji). Do czasu odpowiedzi wpisz wszystkie sztuki jako jeden rozmiar „bez podziału” i oznacz do uzupełnienia."
+  },
+  "wyposazenieZaRowerZaDzien": [
+    { "id": "none", "nazwa": "Bez płatnych dodatków", "cena": 0 },
+    { "id": "mtb", "nazwa": "Kask MTB", "cena": 20 },
+    { "id": "fullface", "nazwa": "Kask full face", "cena": 30 },
+    { "id": "pads", "nazwa": "Kolana + łokcie", "cena": 30 },
+    { "id": "fullkit", "nazwa": "Full face + kolana + łokcie", "cena": 50 }
+  ],
+  "dowoz": {
+    "wSzczyrku": { "cena": 100, "opis": "100 zł za 2 kursy (dowóz i odbiór), propozycja do potwierdzenia" },
+    "pozaSzczyrkiem": "wycena indywidualna",
+    "odbiorWlasny": 0
+  },
+  "reguly": {
+    "najemGodzinowy": { "godzinyOd": 1, "godzinyDo": 9, "jednaData": true, "doCzterechGodzinCenaDo4h": true, "powyzejCzterechGodzinCenaDnia": true, "musiZmiescicSieWGodzinachOtwarcia": true },
+    "najemDniowy": { "dniOd": 1, "dniDo": 30, "start": "09:00", "powrot": "18:00", "powyzejTrzechDniWycenaIndywidualna": true },
+    "limity": { "rowerowWZamowieniu": 100, "sztukJednegoModelu": 50, "powyzej100": "kontakt indywidualny" },
+    "rabatGrupowy": { "procent": 5, "tylkoTaryfa": "quiet", "minimumRowerow": 4, "podstawa": "stawka dnia z taryfy bazowej × liczba dni × liczba sztuk × 0,95", "stosujNizszaKwote": "porównaj z ceną pakietu, wybierz niższą" },
+    "wybórTaryfy": "automatycznie po datach; klient nie widzi nazw taryf; gdy daty nie pasują do żadnej taryfy specjalnej, stosuj bazową",
+    "kwotaPrzechowywanaWGrosze": true
+  },
+  "statusyZgloszen": [
+    { "id": "new", "nazwa": "Nowe", "blokujeSprzet": true },
+    { "id": "confirmed", "nazwa": "Potwierdzone", "blokujeSprzet": true },
+    { "id": "issued", "nazwa": "Wydane", "blokujeSprzet": true },
+    { "id": "returned", "nazwa": "Zwrócone", "blokujeSprzet": false },
+    { "id": "rejected", "nazwa": "Odrzucone", "blokujeSprzet": false },
+    { "id": "cancelled", "nazwa": "Anulowane", "blokujeSprzet": false }
+  ],
+  "_statusyUwaga": "Obecna aplikacja ma tylko Nowe, W kontakcie, Zamknięte. Zestaw powyżej to propozycja ze specyfikacji; statusy mają być edytowalne w panelu.",
+  "wyglad": {
+    "czcionka": "Jost",
+    "kolory": { "zielony": "#6ac680", "ciemnozielony": "#24613b", "pomaranczowy": "#f7a63d", "linia": "#e0e7e1" },
+    "punktyZalamania": [1000, 760],
+    "motywZrodlowy": "WordPress renroll ze skybike.fun (referencja/style/theme.css)"
+  }
+}

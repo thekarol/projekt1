@@ -1,0 +1,708 @@
+{
+  "source": "specyfikacja.md, tabela „Ceny w obecnej aplikacji (PLN brutto za rower)”",
+  "note": "Daty dobrane tak, by każdy dzień spełniał warunek taryfy: Bazowy 6-8 lipca 2027, Wolne terminy 7-9 czerwca 2027 (pon-śr), Duży popyt 14-16 września 2027. Kwoty w groszach.",
+  "cases": [
+    {
+      "name": "NS Bikes E-Fine 1 / Bazowy / Do 4 h",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Bazowy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 20000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Bazowy / Dzień",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Bazowy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 25000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Bazowy / 2 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Bazowy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-07",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 45000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Bazowy / 3 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Bazowy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-08",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 65000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Wolne terminy / Do 4 h",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Wolne terminy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 20000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Wolne terminy / Dzień",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Wolne terminy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 23000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Wolne terminy / 2 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Wolne terminy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-08",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 44000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Wolne terminy / 3 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Wolne terminy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-09",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 63000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Duży popyt / Do 4 h",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Duży popyt",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 22000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Duży popyt / Dzień",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Duży popyt",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 27000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Duży popyt / 2 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Duży popyt",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-15",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 49000
+    },
+    {
+      "name": "NS Bikes E-Fine 1 / Duży popyt / 3 dni",
+      "model": "NS Bikes E-Fine 1",
+      "tariff": "Duży popyt",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-16",
+        "items": [
+          {
+            "variantId": "ns-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 71000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Bazowy / Do 4 h",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Bazowy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 15000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Bazowy / Dzień",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Bazowy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 19000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Bazowy / 2 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Bazowy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-07",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 35000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Bazowy / 3 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Bazowy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-08",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 50000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Wolne terminy / Do 4 h",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Wolne terminy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 15000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Wolne terminy / Dzień",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Wolne terminy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 18000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Wolne terminy / 2 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Wolne terminy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-08",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 34000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Wolne terminy / 3 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Wolne terminy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-09",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 49000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Duży popyt / Do 4 h",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Duży popyt",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 16000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Duży popyt / Dzień",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Duży popyt",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 20000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Duży popyt / 2 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Duży popyt",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-15",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 38000
+    },
+    {
+      "name": "Cannondale Jekyll 2 / Duży popyt / 3 dni",
+      "model": "Cannondale Jekyll 2",
+      "tariff": "Duży popyt",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-16",
+        "items": [
+          {
+            "variantId": "cannondale-m",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 55000
+    },
+    {
+      "name": "KTM Macina 893 / Bazowy / Do 4 h",
+      "model": "KTM Macina 893",
+      "tariff": "Bazowy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 16000
+    },
+    {
+      "name": "KTM Macina 893 / Bazowy / Dzień",
+      "model": "KTM Macina 893",
+      "tariff": "Bazowy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-06",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 20000
+    },
+    {
+      "name": "KTM Macina 893 / Bazowy / 2 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Bazowy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-07",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 37000
+    },
+    {
+      "name": "KTM Macina 893 / Bazowy / 3 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Bazowy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-07-06",
+        "endDate": "2027-07-08",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 54000
+    },
+    {
+      "name": "KTM Macina 893 / Wolne terminy / Do 4 h",
+      "model": "KTM Macina 893",
+      "tariff": "Wolne terminy",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 16000
+    },
+    {
+      "name": "KTM Macina 893 / Wolne terminy / Dzień",
+      "model": "KTM Macina 893",
+      "tariff": "Wolne terminy",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-07",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 18000
+    },
+    {
+      "name": "KTM Macina 893 / Wolne terminy / 2 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Wolne terminy",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-08",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 35000
+    },
+    {
+      "name": "KTM Macina 893 / Wolne terminy / 3 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Wolne terminy",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-06-07",
+        "endDate": "2027-06-09",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 51000
+    },
+    {
+      "name": "KTM Macina 893 / Duży popyt / Do 4 h",
+      "model": "KTM Macina 893",
+      "tariff": "Duży popyt",
+      "column": "Do 4 h",
+      "order": {
+        "mode": "hours",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "startMinute": 600,
+        "endMinute": 840,
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 17000
+    },
+    {
+      "name": "KTM Macina 893 / Duży popyt / Dzień",
+      "model": "KTM Macina 893",
+      "tariff": "Duży popyt",
+      "column": "Dzień",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-14",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 21000
+    },
+    {
+      "name": "KTM Macina 893 / Duży popyt / 2 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Duży popyt",
+      "column": "2 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-15",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 39000
+    },
+    {
+      "name": "KTM Macina 893 / Duży popyt / 3 dni",
+      "model": "KTM Macina 893",
+      "tariff": "Duży popyt",
+      "column": "3 dni",
+      "order": {
+        "mode": "days",
+        "startDate": "2027-09-14",
+        "endDate": "2027-09-16",
+        "items": [
+          {
+            "variantId": "ktm-l",
+            "quantity": 1
+          }
+        ],
+        "services": []
+      },
+      "expectedTotal": 57000
+    }
+  ]
+}

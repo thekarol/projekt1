@@ -1,0 +1,194 @@
+{
+  "note": "Przypadki reguł cenowych. order = zamówienie, patch = zmiana w danych oferty przed liczeniem (tak jak zrobiłby to administrator w panelu), expect = oczekiwane pola wyceny (kwoty w groszach). Ten sam plik ma później sprawdzać implementację po stronie serwera.",
+  "cases": [
+    {
+      "name": "5 godzin kosztuje tyle, co dzień",
+      "order": { "mode": "hours", "startDate": "2027-07-06", "endDate": "2027-07-06", "startMinute": 600, "endMinute": 900, "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 25000, "priceStatus": "final", "lines": [{ "method": { "code": "dayByHours" } }] }
+    },
+    {
+      "name": "1 godzina to cena krótkiego najmu",
+      "order": { "mode": "hours", "startDate": "2027-07-06", "endDate": "2027-07-06", "startMinute": 600, "endMinute": 660, "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 20000, "lines": [{ "method": { "code": "short", "maxHours": 4 } }] }
+    },
+    {
+      "name": "9 godzin (cały dzień w trybie godzinowym) to cena dnia",
+      "order": { "mode": "hours", "startDate": "2027-07-06", "endDate": "2027-07-06", "startMinute": 540, "endMinute": 1080, "items": [{ "variantId": "ktm-l", "quantity": 1 }], "services": [] },
+      "expect": { "total": 20000 }
+    },
+    {
+      "name": "4 dni: brak ceny automatycznej, do ustalenia, bez płatności online",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-09", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 0, "priceStatus": "toBeAgreed", "onlinePaymentAllowed": false, "toBeAgreed": [{ "code": "longerThanPackages", "refId": "ns-m" }], "lines": [{ "unitPrice": null, "lineTotal": null }] }
+    },
+    {
+      "name": "Termin w dwóch cenach: 30-31 sierpnia (Bazowy) i 1 września (Duży popyt)",
+      "order": { "mode": "days", "startDate": "2027-08-30", "endDate": "2027-09-01", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 67000, "standardSubtotal": 65000, "dateDifference": 2000, "priceStatus": "final", "lines": [{ "mixed": true, "unitPrice": 67000 }] }
+    },
+    {
+      "name": "Czwartek w Wolnych terminach, piątek i sobota w Bazowej: 643,33 zł zaokrąglone do 643 zł",
+      "order": { "mode": "days", "startDate": "2027-06-10", "endDate": "2027-06-12", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 64300, "standardSubtotal": 65000, "dateDifference": -700 }
+    },
+    {
+      "name": "Zaokrąglenie dotyczy ceny jednego roweru, potem mnożymy przez ilość",
+      "order": { "mode": "days", "startDate": "2027-06-10", "endDate": "2027-06-12", "items": [{ "variantId": "ns-m", "quantity": 3 }], "services": [] },
+      "expect": { "total": 192900, "lines": [{ "unitPrice": 64300, "lineTotal": 192900 }] }
+    },
+    {
+      "name": "Czwartek i piątek w maju: 2 dni w dwóch cenach",
+      "order": { "mode": "days", "startDate": "2027-05-20", "endDate": "2027-05-21", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 44500, "dateDifference": -500 }
+    },
+    {
+      "name": "Wtorek 4 maja: Wolne terminy",
+      "order": { "mode": "days", "startDate": "2027-05-04", "endDate": "2027-05-04", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 23000, "dateDifference": -2000 }
+    },
+    {
+      "name": "Poniedziałek 3 maja (święto): wyjątek przywraca cenę Bazową",
+      "order": { "mode": "days", "startDate": "2027-05-03", "endDate": "2027-05-03", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 25000, "dateDifference": 0 }
+    },
+    {
+      "name": "Boże Ciało 27 maja (czwartek): wyjątek przywraca cenę Bazową",
+      "order": { "mode": "days", "startDate": "2027-05-27", "endDate": "2027-05-27", "items": [{ "variantId": "cannondale-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 19000 }
+    },
+    {
+      "name": "Wyjątek z własną kwotą dla jednego rozmiaru; pozostałe biorą cenę z taryfy",
+      "patch": { "dateExceptions": [{ "id": "t-custom", "from": "2027-07-10", "to": "2027-07-10", "action": { "kind": "customPrices", "prices": [{ "variantId": "ns-m", "bandId": "day", "amount": 30000 }] } }] },
+      "order": { "mode": "days", "startDate": "2027-07-10", "endDate": "2027-07-10", "items": [{ "variantId": "ns-m", "quantity": 1 }, { "variantId": "cannondale-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 49000, "lines": [{ "unitPrice": 30000 }, { "unitPrice": 19000 }] }
+    },
+    {
+      "name": "Wyjątek z własną kwotą pakietu 2 dni wchodzi do proporcji",
+      "patch": { "dateExceptions": [{ "id": "t-custom", "from": "2027-07-10", "to": "2027-07-10", "action": { "kind": "customPrices", "prices": [{ "variantId": "ns-m", "bandId": "days2", "amount": 50000 }] } }] },
+      "order": { "mode": "days", "startDate": "2027-07-10", "endDate": "2027-07-11", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 47500 }
+    },
+    {
+      "name": "Połówka złotówki zaokrągla się w górę: 450,50 zł daje 451 zł",
+      "patch": { "dateExceptions": [{ "id": "t-custom", "from": "2027-07-10", "to": "2027-07-10", "action": { "kind": "customPrices", "prices": [{ "variantId": "ns-m", "bandId": "days2", "amount": 45100 }] } }] },
+      "order": { "mode": "days", "startDate": "2027-07-10", "endDate": "2027-07-11", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 45100 }
+    },
+    {
+      "name": "Wyjątek przypisujący taryfę do dat poza jej sezonem",
+      "patch": { "dateExceptions": [{ "id": "t-event", "from": "2027-07-17", "to": "2027-07-18", "action": { "kind": "tariff", "tariffId": "peak" } }] },
+      "order": { "mode": "days", "startDate": "2027-07-17", "endDate": "2027-07-18", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 49000, "dateDifference": 4000 }
+    },
+    {
+      "name": "Rabat grupowy: od 4 rowerów 5% od całego zamówienia, cena do ustalenia",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }, { "variantId": "ns-l", "quantity": 1 }], "services": [{ "serviceId": "mtb", "quantity": 4 }] },
+      "expect": { "rentalSubtotal": 100000, "servicesSubtotal": 8000, "discount": { "percent": 5, "base": 108000, "amount": 5400 }, "total": 102600, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "groupDiscount", "refId": null }], "onlinePaymentAllowed": false }
+    },
+    {
+      "name": "3 rowery: bez rabatu, cena ostateczna, płatność online dostępna",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }], "services": [] },
+      "expect": { "total": 75000, "discount": null, "priceStatus": "final", "onlinePaymentAllowed": true }
+    },
+    {
+      "name": "Rabat grupowy obejmuje także dowóz",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }, { "variantId": "ns-l", "quantity": 1 }], "services": [{ "serviceId": "delivery-city", "quantity": 1 }] },
+      "expect": { "discount": { "percent": 5, "base": 110000, "amount": 5500 }, "total": 104500 }
+    },
+    {
+      "name": "Próg i procent rabatu zmienione w ustawieniach (od 2 sztuk, 10%)",
+      "patch": { "settings": { "groupDiscount": { "minUnits": 2, "percent": 10 } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 2 }], "services": [] },
+      "expect": { "total": 45000, "discount": { "percent": 10, "base": 50000, "amount": 5000 } }
+    },
+    {
+      "name": "Rabat liczony tylko od rowerów (ustawienie podstawy rabatu)",
+      "patch": { "settings": { "groupDiscount": { "base": "rental" } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }, { "variantId": "ns-l", "quantity": 1 }], "services": [{ "serviceId": "mtb", "quantity": 4 }] },
+      "expect": { "total": 103000, "discount": { "percent": 5, "base": 100000, "amount": 5000 } }
+    },
+    {
+      "name": "Rabat grupowy wyłączony w ustawieniach",
+      "patch": { "settings": { "groupDiscount": { "active": false } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }, { "variantId": "ns-l", "quantity": 1 }], "services": [] },
+      "expect": { "total": 100000, "discount": null, "priceStatus": "final" }
+    },
+    {
+      "name": "Wyposażenie jako osobne pozycje: 3 kaski na 2 rowery, za sztukę za dzień",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-07", "items": [{ "variantId": "ns-m", "quantity": 2 }], "services": [{ "serviceId": "mtb", "quantity": 3 }] },
+      "expect": { "rentalSubtotal": 90000, "servicesSubtotal": 12000, "total": 102000, "priceStatus": "final" }
+    },
+    {
+      "name": "Wyposażenie przy najmie godzinowym liczone jak za jeden dzień",
+      "order": { "mode": "hours", "startDate": "2027-07-06", "endDate": "2027-07-06", "startMinute": 600, "endMinute": 720, "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [{ "serviceId": "fullkit", "quantity": 1 }] },
+      "expect": { "total": 25000 }
+    },
+    {
+      "name": "Dowóz w Szczyrku do limitu auta: cena pewna 100 zł",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }], "services": [{ "serviceId": "delivery-city", "quantity": 1 }] },
+      "expect": { "total": 85000, "priceStatus": "final", "onlinePaymentAllowed": true, "serviceLines": [{ "lineTotal": 10000 }] }
+    },
+    {
+      "name": "Dowóz ponad limit auta: do ustalenia, bez kwoty w sumie",
+      "patch": { "settings": { "delivery": { "vehicleCapacity": 2 } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }], "services": [{ "serviceId": "delivery-city", "quantity": 1 }] },
+      "expect": { "total": 75000, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "deliveryOverVehicleLimit", "refId": "delivery-city" }], "serviceLines": [{ "lineTotal": null }] }
+    },
+    {
+      "name": "Limit auta podniesiony w ustawieniach: 5 rowerów z dowozem ma cenę pewną",
+      "patch": { "settings": { "delivery": { "vehicleCapacity": 6 }, "groupDiscount": { "active": false } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 3 }, { "variantId": "ns-l", "quantity": 2 }], "services": [{ "serviceId": "delivery-city", "quantity": 1 }] },
+      "expect": { "total": 135000, "priceStatus": "final" }
+    },
+    {
+      "name": "Dowóz poza Szczyrk: do ustalenia",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [{ "serviceId": "delivery-outside", "quantity": 1 }] },
+      "expect": { "total": 25000, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "serviceQuote", "refId": "delivery-outside" }] }
+    },
+    {
+      "name": "Próg krótkiego najmu zmieniony z 4 na 5 godzin",
+      "patch": { "bands": [{ "id": "short", "maxHours": 5 }] },
+      "order": { "mode": "hours", "startDate": "2027-07-06", "endDate": "2027-07-06", "startMinute": 600, "endMinute": 900, "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 20000, "lines": [{ "method": { "code": "short", "maxHours": 5 } }] }
+    },
+    {
+      "name": "Dodany pakiet 4 dni ze stawką: 4 dni mają cenę automatyczną",
+      "patch": { "bands": [{ "id": "days4", "kind": "days", "days": 4, "label": "4 dni", "order": 4 }], "rates": [{ "tariffId": "standard", "variantId": "ns-m", "bandId": "days4", "amount": 82000 }] },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-09", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 82000, "priceStatus": "final", "lines": [{ "method": { "code": "package", "days": 4 } }] }
+    },
+    {
+      "name": "Pakiet bez stawki w taryfie sezonowej: do ustalenia zamiast zgadywania",
+      "patch": { "bands": [{ "id": "days4", "kind": "days", "days": 4, "label": "4 dni", "order": 4 }], "rates": [{ "tariffId": "standard", "variantId": "ns-m", "bandId": "days4", "amount": 82000 }] },
+      "order": { "mode": "days", "startDate": "2027-09-14", "endDate": "2027-09-17", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 0, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "missingRate", "refId": "ns-m" }] }
+    },
+    {
+      "name": "Długość między pakietami (4 dni przy pakietach 2, 3 i 5): do ustalenia",
+      "patch": { "bands": [{ "id": "days5", "kind": "days", "days": 5, "label": "5 dni", "order": 5 }], "rates": [{ "tariffId": "standard", "variantId": "ns-m", "bandId": "days5", "amount": 100000 }] },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-09", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "noPackageForLength", "refId": "ns-m" }] }
+    },
+    {
+      "name": "Płatności online wyłączone w ustawieniach",
+      "patch": { "settings": { "payments": { "onlineEnabled": false } } },
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [] },
+      "expect": { "total": 25000, "priceStatus": "final", "onlinePaymentAllowed": false }
+    },
+    {
+      "name": "Indywidualne warunki zaznaczone przez klienta",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-06", "items": [{ "variantId": "ns-m", "quantity": 1 }], "services": [], "individualTerms": true },
+      "expect": { "total": 25000, "priceStatus": "toBeAgreed", "toBeAgreed": [{ "code": "individualTerms", "refId": null }] }
+    },
+    {
+      "name": "Oszczędność pakietu 2 dni względem dwóch pojedynczych dni",
+      "order": { "mode": "days", "startDate": "2027-07-06", "endDate": "2027-07-07", "items": [{ "variantId": "ns-m", "quantity": 2 }], "services": [] },
+      "expect": { "total": 90000, "lines": [{ "packageSaving": 10000 }] }
+    },
+    {
+      "name": "Dwa rozmiary tego samego roweru w jednym zamówieniu",
+      "order": { "mode": "days", "startDate": "2027-06-11", "endDate": "2027-06-12", "items": [{ "variantId": "ns-s", "quantity": 1 }, { "variantId": "ns-m", "quantity": 2 }], "services": [] },
+      "expect": { "units": 3, "total": 135000, "priceStatus": "final", "lines": [{ "variantId": "ns-s", "lineTotal": 45000 }, { "variantId": "ns-m", "lineTotal": 90000 }] }
+    }
+  ]
+}
