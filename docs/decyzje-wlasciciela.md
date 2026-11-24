@@ -1,10 +1,10 @@
 # Faza 1: decyzje właściciela po akceptacji Fazy 0
 
-Stan na 2026-11-24. Faza 0 jest zaakceptowana. Ten plik zbiera odpowiedzi właściciela z rozmowy i ma pierwszeństwo nad `faza-0/faza-0-decyzje-i-plan.md` tam, gdzie się różnią. Wygląd reguluje `faza-0/kierunek-wizualny.md`.
+Stan na 2026-11-24. Faza 0 jest zaakceptowana. Ten plik zbiera odpowiedzi właściciela z rozmowy i ma pierwszeństwo nad `faza-0/faza-0-decyzje-i-plan.md` tam, gdzie się różnią. Wygląd reguluje od 2026-11-24 `faza-2/kierunek-wizualny-v2.md`; `faza-0/kierunek-wizualny.md` przestał obowiązywać.
 
-**Stan prac:** bramka 1A zaakceptowana („dalej”). **Bramka 1B gotowa do oceny właściciela:** działa pokaz (sklep, kalendarz, koszyk, potwierdzenie, panel administratora, prosta lista zgłoszeń, „O pokazie”). Testy: 237 z 237 (silniki, repozytorium, architektura), 36 z 36 sprawdzeń w przeglądarce, 84 z 84 testów silników na żywo w pokazie. Raport: `docs/bramka-1B.md` w repozytorium.
+**Stan prac:** bramki 1A i 1B zaakceptowane („dalej”). Trwa krok „nowy wygląd” przed Fazą 2: punkt kontrolny wyglądu czeka na ocenę właściciela. W bramce 1B: działa pokaz (sklep, kalendarz, koszyk, potwierdzenie, panel administratora, prosta lista zgłoszeń, „O pokazie”). Testy: 237 z 237 (silniki, repozytorium, architektura), 36 z 36 sprawdzeń w przeglądarce, 84 z 84 testów silników na żywo w pokazie. Raport: `docs/bramka-1B.md` w repozytorium.
 
-**Kod:** repozytorium `thekarol/projekt1`. Gałąź `faza-1a-silniki` (bramka 1A) i `faza-1b-widoki` (bramka 1B) są na GitHubie.
+**Kod:** repozytorium `thekarol/projekt1`. Gałęzie `faza-1a-silniki` (bramka 1A), `faza-1b-widoki` (bramka 1B) i `faza-2-wyglad-i-obsluga` (nowy wygląd, potem Faza 2) są na GitHubie.
 
 **Pokaz:** prywatny artefakt https://claude.ai/artifact/FNZYDq4vKCwD7Exf94rfTa (widoczny tylko dla właściciela, dopóki go nie udostępni).
 
@@ -60,7 +60,9 @@ Stan na 2026-11-24. Faza 0 jest zaakceptowana. Ten plik zbiera odpowiedzi właś
 
 - **Pokaz używa prawdziwej dzisiejszej daty.** Przykładowe zgłoszenia są w czerwcu 2027.
 - Zdjęcia z `referencja/zdjecia` w prywatnym pokazie. Klientowi pokazujemy po Fazie 2. Publikacja: najpierw prywatny artefakt, później darmowy hosting statyczny.
-- `theme.css` tylko jako źródło kolorów i czcionki. Bez przeglądania makiet z Fazy 0 i bez nowych makiet. Jeden punkt kontrolny wyglądu przy bramce 1B (1280, 900, 390 px).
+- **Nowy wygląd (decyzja z 2026-11-24):** ekran startowy sklepu jak nagłówek komoot.com (przezroczysty pasek menu na zdjęciu zajmującym cały pierwszy ekran, duże hasło, dwa przyciski); styl ze stron skybike-oferta i skybike.fun zastępuje poprzedni kierunek wizualny. Szczegóły: `faza-2/kierunek-wizualny-v2.md`.
+- **Kolejność:** najpierw nowy wygląd obecnych widoków z jednym punktem kontrolnym (zrzuty 1280, 900, 390 px), potem Faza 2 już w tym stylu.
+- Bez przeglądania makiet z Fazy 0 i bez nowych makiet.
 - Szkic płatności nie przyjmuje żadnych danych płatniczych: pole kodu jest nieaktywne.
 
 ## Zasada nadrzędna
@@ -95,8 +97,13 @@ Z bramki 1B:
 - **Panel kierowcy:** kierowca widzi imię, telefon i adres klienta; nie widzi e-maila ani kwot.
 - **Statusy dowozu:** lista edytowalna w panelu, jak statusy zgłoszeń. Startowo: Zgłoszenie (przed zatwierdzeniem), Zaplanowany, W drodze, Dostarczony, Odebrany od klienta.
 - **Kody egzemplarzy przy wydaniu:** zespół może je zaznaczyć przy statusie „Wydane”, ale nie musi; brak kodów nie blokuje wydania.
+- **Karty dowozu:** dowóz i odbiór to dwie osobne karty, każda z własnym statusem, godziną i kierowcą.
+- **Godzina kursu:** klient wpisuje w koszyku preferowaną godzinę dowozu i odbioru; zespół potwierdza ją albo zmienia przy planowaniu.
+- **Limit kursów:** bez limitu w sklepie; panel tylko ostrzega, gdy ten sam kierowca ma dwa kursy o tej samej godzinie.
+- **Edycja zgłoszeń:** zespół może zmienić termin, rowery, ilości i usługi; system sprawdza dostępność, przelicza kwotę i zapisuje zmianę w historii zgłoszenia.
 
 ## Pytania otwarte po bramce 1B
 
-- Akceptacja bramki 1B przez właściciela (wygląd i zasady w pokazie).
+- Ocena nowego wyglądu (punkt kontrolny przed Fazą 2).
+- Plik logo SKY BIKE (kółko ze skybike.fun) i prawo do jego użycia; do tego czasu nagłówek pokazuje nazwę tekstem.
 - Prawa do zdjęć (nagłówek i kafelki) po wdrożeniu.

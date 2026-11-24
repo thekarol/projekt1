@@ -137,7 +137,7 @@ export function Calendar(props: {
         <span><i className="ra-swatch" style={{ borderColor: 'var(--accent)' }} />ostatnie sztuki</span>
         <span><i className="ra-swatch" style={{ borderStyle: 'dashed', borderColor: '#8a6a2a' }} />częściowo wolny</span>
         <span><i className="ra-swatch" style={{ background: 'repeating-linear-gradient(135deg,#f0f1ee 0 4px,#d9dbd5 4px 8px)' }} />brak lub zamknięte</span>
-        <span><i className="ra-swatch" style={{ background: 'var(--brand-dark)', borderColor: 'var(--brand-dark)' }} />Twój termin</span>
+        <span><i className="ra-swatch" style={{ background: 'var(--brand)', borderColor: 'var(--brand)' }} />Twój termin</span>
         <span><b className="ra-delta" style={{ fontSize: 12, color: 'var(--accent-ink)', background: 'var(--accent-soft)', borderRadius: 999, padding: '0 6px' }}>±zł</b>różnica ceny za dzień</span>
       </div>
     </div>

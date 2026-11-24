@@ -53,20 +53,55 @@ function DemoBar() {
   );
 }
 
-function Header(props: { view: ViewId }) {
+/** Sections of the home page reachable from the menu. */
+const SECTIONS = [
+  ['ra-rowery', 'Rowery'],
+  ['ra-korzysci', 'Jak to działa'],
+  ['ra-pytania', 'Pytania'],
+] as const;
+
+function Header(props: { view: ViewId; overlay: boolean }) {
   const app = useApp();
+  const [open, setOpen] = useState(false);
   const count = app.cart.items.reduce((sum, item) => sum + item.quantity, 0);
-  const links = NAV.filter((view) => canView(app.role, view));
+  const links = NAV.filter((view) => view !== 'start' && canView(app.role, view));
+
+  useEffect(() => setOpen(false), [props.view, app.role]);
+
+  const toSection = (id: string): void => {
+    setOpen(false);
+    const scroll = (): void => {
+      const calm = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById(id)?.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    };
+    if (props.view === 'start') scroll();
+    else {
+      app.go('start');
+      setTimeout(scroll, 80);
+    }
+  };
+
+  const items = (
+    <>
+      {links.length === 0 ? (
+        SECTIONS.map(([id, label]) => (
+          <button key={id} type="button" className="ra-navlink" onClick={() => toSection(id)}>{label}</button>
+        ))
+      ) : (
+        <a href="#start" aria-current={props.view === 'start' ? 'page' : undefined}>Sklep</a>
+      )}
+      {links.map((view) => (
+        <a key={view} href={`#${view}`} aria-current={props.view === view ? 'page' : undefined}>{VIEWS[view].label}</a>
+      ))}
+    </>
+  );
+
   return (
-    <header className="ra-header">
+    <header className="ra-header" data-overlay={props.overlay && !open}>
       <div className="ra-wrap">
         <a className="ra-logo" href="#start">{app.catalog.tenant.name}</a>
         <nav className="ra-nav" aria-label="Główna">
-          {links.length > 1
-            ? links.map((view) => (
-                <a key={view} href={`#${view}`} aria-current={props.view === view ? 'page' : undefined}>{VIEWS[view].label}</a>
-              ))
-            : null}
+          {items}
           {canView(app.role, 'koszyk') ? (
             <a className="ra-cartlink" href="#koszyk" data-testid="cartlink" aria-current={props.view === 'koszyk' ? 'page' : undefined}>
               <Icon name="cart" />
@@ -74,10 +109,26 @@ function Header(props: { view: ViewId }) {
               <span className="ra-count" aria-label={`sztuk w koszyku: ${count}`}>{count}</span>
             </a>
           ) : null}
+          <button type="button" className="ra-menubtn" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>
+            <Icon name={open ? 'x' : 'menu'} size={24} />
+          </button>
         </nav>
+        {open ? <div className="ra-menu" data-testid="menu">{items}</div> : null}
       </div>
     </header>
   );
+}
+
+/** True while the page is scrolled near the top, where the header sits on the hero photo. */
+function useAtTop(): boolean {
+  const [atTop, setAtTop] = useState(true);
+  useEffect(() => {
+    const onScroll = (): void => setAtTop((globalThis.scrollY ?? 0) < 24);
+    onScroll();
+    globalThis.addEventListener('scroll', onScroll, { passive: true });
+    return () => globalThis.removeEventListener('scroll', onScroll);
+  }, []);
+  return atTop;
 }
 
 function page(view: ViewId): ReactNode {
@@ -98,16 +149,13 @@ export function Shell() {
   const app = useApp();
   const view = useView();
   const allowed = canView(app.role, view);
+  const atTop = useAtTop();
+  const hasHero = app.catalog.content.some((c) => c.kind === 'hero' && c.active);
   return (
     <>
       <DemoBar />
-      <Header view={view} />
-      <main>
-        {app.role === 'driver' && view === 'start' ? (
-          <div className="ra-wrap" style={{ paddingTop: 16 }}>
-            <Notice kind="note">Panel kierowcy z listą dowozów powstanie w Fazie 2. Na razie kierowca widzi tylko ofertę.</Notice>
-          </div>
-        ) : null}
+      <Header view={view} overlay={view === 'start' && allowed && hasHero && atTop} />
+      <main data-hero={view === 'start' && hasHero}>
         {allowed ? page(view) : (
           <div className="ra-wrap ra-panel">
             <h1>{VIEWS[view].label}</h1>

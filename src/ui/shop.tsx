@@ -103,9 +103,9 @@ function ProductCard(props: { product: Product; onTerm: (productId: Id) => void;
       {show('image') ? (
         <div className="ra-photo">{product.image ? <img src={app.assets + product.image} alt={product.name} loading="lazy" /> : <span className="ra-muted ra-small">Brak zdjęcia</span>}</div>
       ) : null}
-      <div className="ra-stack" style={{ gap: 8 }}>
+      <div className="ra-product-head">
         {show('name') ? <h3>{product.name}</h3> : null}
-        {show('type') && product.typeLabel ? <span className="ra-badge" style={{ alignSelf: 'flex-start', whiteSpace: 'normal' }}>{product.typeLabel}</span> : null}
+        {show('type') && product.typeLabel ? <span className="ra-type ra-badge">{product.typeLabel}</span> : null}
         {show('audience') && product.audience ? <p className="ra-small ra-muted">{product.audience}</p> : null}
       </div>
       {show('price') ? (
@@ -233,29 +233,41 @@ export function Home() {
 
   return (
     <>
-      <section className="ra-hero">
-        {hero?.image ? <img src={app.assets + hero.image} alt="" /> : null}
-        <div className="ra-wrap">
-          <h1>{hero?.title}</h1>
-          <p>{hero?.body}</p>
-          <div className="ra-termbar">
-            <div className="ra-grow">
-              <div className="ra-small ra-muted">Kiedy jedziesz?</div>
-              <strong>{order ? formatTerm(order) : 'Termin jeszcze nie wybrany'}</strong>
+      {hero ? (
+        <section className="ra-hero">
+          {hero.image ? <img src={app.assets + hero.image} alt="" /> : null}
+          <div className="ra-wrap">
+            <h1>{hero.title}</h1>
+            <p>{hero.body}</p>
+            <div className="ra-hero-actions">
+              <button type="button" className="ra-btn ra-btn-primary ra-btn-big" onClick={() => setTermFor('all')}>
+                {order ? 'Zmień termin' : 'Wybierz termin'}
+                <Icon name="arrow" />
+              </button>
+              <button type="button" className="ra-btn ra-btn-light ra-btn-big" onClick={() => document.getElementById('ra-rowery')?.scrollIntoView({ block: 'start' })}>
+                Zobacz rowery
+              </button>
             </div>
-            <button type="button" className="ra-btn ra-btn-primary" onClick={() => setTermFor('all')}>
-              {order ? 'Zmień termin' : 'Wybierz termin'}
-            </button>
+            <span className="ra-hero-term">{order ? `Twój termin: ${formatTerm(order)}` : 'Ceny i wolne sztuki od razu po wyborze terminu'}</span>
           </div>
+        </section>
+      ) : null}
+      {app.role === 'driver' ? (
+        <div className="ra-wrap" style={{ paddingTop: 24 }}>
+          <Notice kind="note">Panel kierowcy z listą dowozów powstanie w Fazie 2. Na razie kierowca widzi tylko ofertę.</Notice>
         </div>
-      </section>
+      ) : null}
 
-      <section className="ra-section" id="rowery">
-        <div className="ra-wrap ra-stack" style={{ gap: 24 }}>
-          <div className="ra-stack" style={{ gap: 4 }}>
+      <section className="ra-section" id="ra-rowery" style={{ scrollMarginTop: 'var(--header-h)' }}>
+        <div className="ra-wrap ra-stack" style={{ gap: 28 }}>
+          <div className="ra-sectionhead">
+            <span className="ra-eyebrow">Oferta</span>
             <h2>Wybierz rower i rozmiar</h2>
-            <p className="ra-muted">
-              {order ? `Ceny i wolne sztuki dla terminu: ${formatTerm(order)}.` : 'Bez wybranego terminu pokazujemy cenę i wolne sztuki dla najbliższego wolnego dnia.'}
+            <p>
+              {order ? `Ceny i wolne sztuki dla terminu: ${formatTerm(order)}.` : 'Bez wybranego terminu pokazujemy cenę i wolne sztuki dla najbliższego wolnego dnia.'}{' '}
+              {hero ? null : (
+                <button type="button" className="ra-btn ra-btn-link" onClick={() => setTermFor('all')}>{order ? 'Zmień termin' : 'Wybierz termin'}</button>
+              )}
             </p>
           </div>
           {products.length === 0 ? <Notice kind="note">Oferta jest pusta. Dodaj produkty w panelu administratora.</Notice> : null}
@@ -268,22 +280,27 @@ export function Home() {
       </section>
 
       {content('benefit').length > 0 ? (
-        <section className="ra-section" style={{ background: 'var(--surface)' }}>
-          <div className="ra-wrap ra-benefits">
-            {content('benefit').map((item) => (
-              <div key={item.id} className="ra-stack" style={{ gap: 8 }}>
-                <h3>{item.title}</h3>
-                <p className="ra-muted">{item.body}</p>
-              </div>
-            ))}
+        <section id="ra-korzysci" style={{ scrollMarginTop: 'var(--header-h)' }}>
+          <div className="ra-wrap">
+            <div className="ra-benefits">
+              {content('benefit').map((item) => (
+                <div key={item.id} className="ra-stack" style={{ gap: 8 }}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
 
       {content('faq').length > 0 ? (
-        <section className="ra-section">
-          <div className="ra-wrap ra-stack">
-            <h2>Najczęściej zadawane pytania</h2>
+        <section className="ra-section" id="ra-pytania" style={{ scrollMarginTop: 'var(--header-h)' }}>
+          <div className="ra-wrap ra-stack" style={{ gap: 20 }}>
+            <div className="ra-sectionhead">
+              <span className="ra-eyebrow">Zanim wyjedziesz</span>
+              <h2>Najczęściej zadawane pytania</h2>
+            </div>
             <div className="ra-faq">
               {content('faq').map((item) => (
                 <details key={item.id}>
@@ -297,10 +314,14 @@ export function Home() {
       ) : null}
 
       <footer className="ra-footer">
-        <div className="ra-wrap ra-row ra-between">
-          <span>{catalog.tenant.name} · {catalog.tenant.address}</span>
+        <div className="ra-wrap">
+          <div className="ra-stack" style={{ gap: 6 }}>
+            <strong>{catalog.tenant.name}</strong>
+            <span>{catalog.tenant.address}</span>
+          </div>
           <a href="#o-pokazie">O pokazie: co działa, a co jest szkicem</a>
         </div>
+        <div className="ra-footer-bar">Wersja pokazowa na przykładowych danych</div>
       </footer>
 
       <Dialog open={termFor !== null} onClose={() => setTermFor(null)} title="Wybierz termin">
