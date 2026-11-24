@@ -307,7 +307,6 @@ export function ConfirmationPage() {
   const app = useApp();
   const { catalog } = app;
   const reservation = app.lastReservation;
-  const [blik, setBlik] = useState('');
   const [paid, setPaid] = useState(false);
   if (!reservation) {
     return (
@@ -332,11 +331,11 @@ export function ConfirmationPage() {
       {canPay ? (
         <div className="ra-sketchbox">
           <div className="ra-row"><Sketch /><strong>Płatność online BLIK</strong></div>
-          <p className="ra-small">Po wdrożeniu klient przejdzie na stronę operatora płatności. W pokazie przycisk niczego nie pobiera, a dane kart nigdy nie trafiają do tego systemu.</p>
+          <p className="ra-small" id="pay-sketch-note">Po wdrożeniu klient przejdzie na stronę operatora płatności. W pokazie pole kodu jest nieaktywne, przycisk niczego nie pobiera, a dane płatnicze nigdy nie trafiają do tego systemu.</p>
           <div className="ra-row">
             <label className="ra-field" style={{ width: 160 }}>
-              Kod BLIK (6 cyfr)
-              <input inputMode="numeric" maxLength={6} value={blik} onChange={(e) => setBlik(e.target.value.replace(/\D/g, ''))} />
+              Kod BLIK
+              <input disabled placeholder="pole nieaktywne" aria-describedby="pay-sketch-note" />
             </label>
             <button type="button" className="ra-btn ra-btn-primary" style={{ alignSelf: 'flex-end' }} onClick={() => setPaid(true)}>
               Zapłać {money(reservation.total)}
